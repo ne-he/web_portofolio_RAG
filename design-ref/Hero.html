@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nemi — Ask Nemi Everything</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  html, body, #root { height: 100%; }
+  body { margin: 0; background: #000; -webkit-font-smoothing: antialiased; }
+
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(
+      180deg,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,255,255,0.15) 20%,
+      rgba(255,255,255,0)   40%,
+      rgba(255,255,255,0)   60%,
+      rgba(255,255,255,0.15) 80%,
+      rgba(255,255,255,0.45) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* light-mode variant: darker glass border so it reads on light scrim */
+  .liquid-glass.is-light {
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+  }
+  .liquid-glass.is-light::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.12) 20%,
+      rgba(0,0,0,0)    40%,
+      rgba(0,0,0,0)    60%,
+      rgba(0,0,0,0.12) 80%,
+      rgba(0,0,0,0.35) 100%
+    );
+  }
+
+  .scrim {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    transition: background 600ms ease, backdrop-filter 600ms ease;
+  }
+
+  /* ---- chat: icy "particle light" accent, used only as glow & edges ---- */
+  :root { --accent: 170, 222, 255; }
+
+  /* AI consciousness reply: soft glass card, hairline neutral edge */
+  .glass-soft {
+    background: rgba(10,12,16,0.34);
+    backdrop-filter: blur(26px) saturate(1.1);
+    -webkit-backdrop-filter: blur(26px) saturate(1.1);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .glass-soft::before {
+    content:''; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.04) 45%, rgba(255,255,255,0) 70%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+  }
+  .glass-soft.is-light { background: rgba(255,255,255,0.62); box-shadow: inset 0 1px 1px rgba(255,255,255,0.7); }
+  .glass-soft.is-light::before { background: linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.03) 50%, rgba(0,0,0,0)); }
+
+  /* user bubble: icy edge-light + faint outer glow */
+  .glass-accent {
+    background: rgba(var(--accent), 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 0 24px -10px rgba(var(--accent), 0.55), inset 0 1px 1px rgba(255,255,255,0.12);
+    position: relative; overflow: hidden;
+  }
+  .glass-accent::before {
+    content:''; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background: linear-gradient(180deg, rgba(var(--accent),0.7), rgba(var(--accent),0.18) 50%, rgba(var(--accent),0.55));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+  }
+
+  /* glowing particle avatar dot */
+  .particle-dot {
+    background: radial-gradient(circle at 35% 35%, #fff, rgba(var(--accent),1) 55%, rgba(var(--accent),0.2) 100%);
+    box-shadow: 0 0 12px 1px rgba(var(--accent), 0.7), 0 0 26px 4px rgba(var(--accent), 0.35);
+    animation: nemiBreathe 3.2s ease-in-out infinite;
+  }
+  @keyframes nemiBreathe { 0%,100%{ box-shadow: 0 0 10px 1px rgba(var(--accent),0.55), 0 0 22px 4px rgba(var(--accent),0.28);} 50%{ box-shadow: 0 0 16px 2px rgba(var(--accent),0.85), 0 0 34px 7px rgba(var(--accent),0.45);} }
+
+  /* thinking indicator */
+  @keyframes nemiPulse { 0%,100%{ opacity:.25; transform:scale(.7);} 50%{ opacity:1; transform:scale(1);} }
+  .think-dot { width:7px; height:7px; border-radius:9999px;
+    background: rgba(var(--accent),0.95);
+    box-shadow: 0 0 10px 1px rgba(var(--accent),0.7);
+    animation: nemiPulse 1.25s ease-in-out infinite; }
+
+  /* streaming cursor */
+  @keyframes nemiBlink { 0%,49%{ opacity:1;} 50%,100%{ opacity:0;} }
+  .stream-cursor { display:inline-block; width:2px; height:1.05em; margin-left:2px;
+    vertical-align:-0.15em; border-radius:2px;
+    background: rgba(var(--accent),1);
+    box-shadow: 0 0 8px 1px rgba(var(--accent),0.8);
+    animation: nemiBlink 1.05s steps(1) infinite; }
+
+  /* per-token fade-in */
+  @keyframes nemiTok { from{ opacity:0; filter:blur(2px);} to{ opacity:1; filter:blur(0);} }
+  .tok { animation: nemiTok .42s ease both; }
+
+  /* focus ring for input */
+  .accent-focus:focus-within { box-shadow: 0 0 0 1px rgba(var(--accent),0.6), 0 0 26px -6px rgba(var(--accent),0.6), inset 0 1px 1px rgba(255,255,255,0.12) !important; }
+
+  /* thin scrollbar */
+  .chat-scroll::-webkit-scrollbar { width: 6px; }
+  .chat-scroll::-webkit-scrollbar-thumb { background: rgba(var(--accent),0.25); border-radius: 9999px; }
+  .chat-scroll { scrollbar-width: thin; scrollbar-color: rgba(var(--accent),0.25) transparent; }
+
+  .msg-enter { animation: nemiTok .5s ease both; }
+
+  /* kill textarea resize grabber AND scrollbar up/down buttons entirely */
+  textarea { resize: none; scrollbar-width: none; -ms-overflow-style: none; }
+  textarea::-webkit-resizer { display: none; }
+  textarea::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  textarea::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+
+  /* nav links: hover bubble so they read as clickable */
+  .nav-link { padding: 0.4rem 0.85rem; border-radius: 9999px; transition: background 0.25s ease, color 0.25s ease; }
+  .nav-link.dark:hover  { background: rgba(255,255,255,0.12); }
+  .nav-link.light:hover { background: rgba(0,0,0,0.08); }
+
+  /* Nemi logo: on hover, flip into the *opposite* world + icy glow */
+  .nemi-logo { padding: 0.3rem 0.85rem 0.3rem 0.55rem; border-radius: 9999px;
+    transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; }
+  .nemi-logo.dark:hover  { background:#ffffff; color:#05080d;
+    box-shadow: 0 0 26px -4px rgba(170,222,255,0.9), inset 0 0 0 1px rgba(170,222,255,0.5); transform: translateY(-1px); }
+  .nemi-logo.light:hover { background:#06080c; color:#eaf6ff;
+    box-shadow: 0 0 26px -4px rgba(170,222,255,0.7), inset 0 0 0 1px rgba(170,222,255,0.45); transform: translateY(-1px); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+const { useEffect, useRef, useState } = React;
+
+/* tiny lucide-style icon helpers */
+const Icon = ({ children, size = 20, ...p }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size}
+       viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    {children}
+  </svg>
+);
+const Sparkles = (p) => (
+  <Icon {...p}>
+    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+    <path d="M5 3v4" />
+    <path d="M19 17v4" />
+    <path d="M3 5h4" />
+    <path d="M17 19h4" />
+  </Icon>
+);
+const ArrowRight = (p) => (
+  <Icon {...p}>
+    <path d="M5 12h14" />
+    <path d="m12 5 7 7-7 7" />
+  </Icon>
+);
+const Sun = (p) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="m17.66 17.66 1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="m6.34 17.66-1.41 1.41" />
+    <path d="m19.07 4.93-1.41 1.41" />
+  </Icon>
+);
+const Moon = (p) => (
+  <Icon {...p}>
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </Icon>
+);
+const Instagram = (p) => (
+  <Icon {...p}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </Icon>
+);
+const Github = (p) => (
+  <Icon {...p}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </Icon>
+);
+const WhatsApp = (p) => (
+  <Icon {...p}>
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    <path d="M8.5 9.5c.2 1 .9 2.4 2 3.5s2.5 1.8 3.5 2c.4.1.8 0 1.1-.3l.6-.6c.3-.3.3-.7 0-1l-1.2-1c-.3-.3-.7-.3-1 0l-.3.3c-.6-.2-1.3-.7-1.9-1.3s-1.1-1.3-1.3-1.9l.3-.3c.3-.3.3-.7 0-1l-1-1.2c-.3-.3-.7-.3-1 0l-.6.6c-.3.3-.4.7-.3 1.1z" />
+  </Icon>
+);
+
+const ArrowUp = (p) => (
+  <Icon {...p}>
+    <path d="M12 19V5" />
+    <path d="m5 12 7-7 7 7" />
+  </Icon>
+);
+const Plus = (p) => (
+  <Icon {...p}>
+    <path d="M5 12h14" />
+    <path d="M12 5v14" />
+  </Icon>
+);
+
+function VideoBg({ src }) {
+  const vidRef = useRef(null);
+
+  useEffect(() => {
+    const v = vidRef.current;
+    if (!v) return;
+    const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+
+    // attempt on every event that signals the video is ready
+    ['loadeddata', 'canplay', 'canplaythrough', 'stalled', 'suspend'].forEach((e) =>
+      v.addEventListener(e, tryPlay)
+    );
+    // kick immediately + a couple of retries for stubborn autoplay
+    v.load();
+    tryPlay();
+    const t1 = setTimeout(tryPlay, 400);
+    const t2 = setTimeout(tryPlay, 1200);
+
+    // resume if the tab/window regains focus or visibility
+    const onVis = () => { if (!document.hidden) tryPlay(); };
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('focus', tryPlay);
+    // last-resort: first user interaction unblocks autoplay
+    const onInteract = () => tryPlay();
+    window.addEventListener('pointerdown', onInteract, { once: true });
+
+    return () => {
+      ['loadeddata', 'canplay', 'canplaythrough', 'stalled', 'suspend'].forEach((e) =>
+        v.removeEventListener(e, tryPlay)
+      );
+      clearTimeout(t1); clearTimeout(t2);
+      document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('focus', tryPlay);
+      window.removeEventListener('pointerdown', onInteract);
+    };
+  }, [src]);
+
+  return (
+    <video
+      ref={vidRef}
+      key={src}
+      className="absolute inset-0 w-full h-full object-cover scale-[1.32] translate-y-[10%]"
+      src={src}
+      muted
+      autoPlay
+      loop
+      playsInline
+      preload="auto"
+    />
+  );
+}
+
+function ThemeToggle({ theme, setTheme }) {
+  const isDark = theme === 'dark';
+  const baseBtn = "rounded-full px-4 py-1.5 text-sm font-medium flex items-center gap-2 transition-all";
+  // In light mode the surrounding text is dark; in dark mode it's light.
+  const activeStyle = isDark
+    ? "bg-white text-black"
+    : "bg-black text-white";
+  const inactiveStyle = isDark
+    ? "text-white/70 hover:text-white"
+    : "text-black/60 hover:text-black";
+
+  return (
+    <div className={`liquid-glass ${isDark ? '' : 'is-light'} rounded-full p-1 flex items-center gap-1`}>
+      <button
+        onClick={() => setTheme('light')}
+        aria-pressed={!isDark}
+        className={`${baseBtn} ${!isDark ? activeStyle : inactiveStyle}`}
+      >
+        <Sun size={14} />
+        <span>Light</span>
+      </button>
+      <button
+        onClick={() => setTheme('dark')}
+        aria-pressed={isDark}
+        className={`${baseBtn} ${isDark ? activeStyle : inactiveStyle}`}
+      >
+        <Moon size={14} />
+        <span>Dark</span>
+      </button>
+    </div>
+  );
+}
+
+/* ---------- chat building blocks ---------- */
+
+// inline markdown: **bold**, *italic*, `code`
+function renderInline(text) {
+  const nodes = [];
+  const re = /(\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`)/g;
+  let last = 0, m, k = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    if (m[2] !== undefined) nodes.push(<strong key={k++} className="font-semibold">{m[2]}</strong>);
+    else if (m[3] !== undefined) nodes.push(<em key={k++} className="italic opacity-90">{m[3]}</em>);
+    else if (m[4] !== undefined) nodes.push(
+      <code key={k++} style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            className="text-[0.86em] px-1.5 py-0.5 rounded-md bg-white/10">{m[4]}</code>
+    );
+    last = re.lastIndex;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
+
+// reveal text; markdown-aware, with a soft blinking cursor while streaming
+function StreamingText({ text, isStreaming }) {
+  return (
+    <span>
+      {renderInline(text)}
+      {isStreaming && <span className="stream-cursor" />}
+    </span>
+  );
+}
+
+function ThinkingDots() {
+  return (
+    <div className="flex items-center gap-1.5 py-1">
+      <span className="think-dot" />
+      <span className="think-dot" style={{ animationDelay: '0.18s' }} />
+      <span className="think-dot" style={{ animationDelay: '0.36s' }} />
+    </div>
+  );
+}
+
+function MessageBubble({ role, content, isStreaming, thinking, isDark }) {
+  const lightCard = isDark ? '' : 'is-light';
+  if (role === 'user') {
+    return (
+      <div className="msg-enter flex justify-end">
+        <div className={`glass-accent rounded-3xl rounded-br-lg px-5 py-3 max-w-[80%] text-[15px] leading-relaxed ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+          {content}
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="msg-enter flex items-start gap-3.5">
+      <div className="particle-dot mt-1.5 shrink-0" style={{ width: 14, height: 14, borderRadius: 9999 }} />
+      <div className="flex-1 min-w-0">
+        <div className={`text-[11px] tracking-[0.22em] uppercase mb-1.5 ${isDark ? 'text-white/40' : 'text-black/40'}`}
+             style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Nemi</div>
+        <div className={`glass-soft ${lightCard} rounded-3xl rounded-tl-lg px-5 py-3.5 text-[15px] leading-[1.7] ${isDark ? 'text-white/90' : 'text-zinc-800'}`}>
+          {thinking ? <ThinkingDots /> : <StreamingText text={content} isStreaming={isStreaming} />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SuggestedQuestions({ items, onSelect, disabled, isDark }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2.5">
+      {items.map((q) => (
+        <button
+          key={q}
+          disabled={disabled}
+          onClick={() => onSelect(q)}
+          className={`liquid-glass ${isDark ? '' : 'is-light'} rounded-full px-4 py-2 text-[13px] transition-all disabled:opacity-40
+            ${isDark ? 'text-white/75 hover:text-white hover:bg-white/5' : 'text-black/70 hover:text-black hover:bg-black/5'}`}
+        >
+          {q}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function InputBar({ value, onChange, onSend, disabled, isDark, placeholder }) {
+  const taRef = useRef(null);
+  useEffect(() => {
+    const ta = taRef.current; if (!ta) return;
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+  }, [value]);
+
+  const onKey = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!disabled) onSend(); }
+  };
+  const txt = isDark ? 'text-white' : 'text-zinc-900';
+  const ph = isDark ? 'placeholder:text-white/35' : 'placeholder:text-black/35';
+  const sendReady = value.trim().length > 0 && !disabled;
+
+  return (
+    <div className={`liquid-glass accent-focus ${isDark ? '' : 'is-light'} rounded-3xl pl-5 pr-2.5 py-2.5 flex items-end gap-3`}>
+      <textarea
+        ref={taRef}
+        rows={1}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKey}
+        placeholder={placeholder}
+        style={{ resize: 'none' }}
+        className={`flex-1 bg-transparent outline-none resize-none text-[15px] leading-relaxed py-1.5 max-h-40 ${txt} ${ph}`}
+      />
+      <button
+        onClick={() => sendReady && onSend()}
+        disabled={!sendReady}
+        aria-label="Send"
+        className="shrink-0 rounded-2xl p-2.5 transition-all duration-300"
+        style={sendReady
+          ? { background: 'rgba(170,222,255,1)', color: '#04121c', boxShadow: '0 0 22px -4px rgba(170,222,255,0.85)' }
+          : { background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)', color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)' }}
+      >
+        <ArrowRight size={18} />
+      </button>
+    </div>
+  );
+}
+
+/* ---------- canned fallback if the in-prototype Claude API is unavailable ---------- */
+const NEMI_FALLBACKS = {
+  default: "I'm Nemi — Nehemiah's digital mind, rendered in light. Ask me about his projects, his stack, or how to reach him.",
+  projects: "Nehemiah builds thoughtful web experiences — interactive product prototypes, RAG-powered tools, and motion-rich landing pages. Each one pairs clean engineering with a strong visual point of view.",
+  stack: "His core stack is **React** and **Next.js** with **TypeScript** and **Tailwind**. On the backend he reaches for serverless functions and vector search to power retrieval-augmented chat like this one.",
+  contact: "The fastest way to reach Nehemiah is the icons below — **Instagram**, **GitHub**, or **WhatsApp**. He reads everything that lands there.",
+  about: "Nehemiah is a designer-engineer who likes the seam where craft meets code. He cares about interfaces that feel calm, considered, and a little bit alive — like this one."
+};
+function pickFallback(q) {
+  const s = q.toLowerCase();
+  if (/(project|build|work|portfolio)/.test(s)) return NEMI_FALLBACKS.projects;
+  if (/(stack|tech|tool|language|framework)/.test(s)) return NEMI_FALLBACKS.stack;
+  if (/(contact|reach|email|hire|connect)/.test(s)) return NEMI_FALLBACKS.contact;
+  if (/(who|about|background|story)/.test(s)) return NEMI_FALLBACKS.about;
+  return NEMI_FALLBACKS.default;
+}
+
+async function fetchNemiReply(question) {
+  try {
+    if (window.claude && typeof window.claude.complete === 'function') {
+      const prompt =
+        "You are Nemi, the AI persona of Nehemiah's personal portfolio — a digital consciousness rendered in glowing particles. " +
+        "Speak warmly, briefly (2-4 sentences), first-person as Nemi on Nehemiah's behalf. You may use **bold** and *italic*. " +
+        "If you don't know a specific fact, stay graceful and general.\n\nVisitor asks: " + question;
+      const out = await window.claude.complete(prompt);
+      if (out && out.trim()) return out.trim();
+    }
+  } catch (e) { /* fall through */ }
+  return pickFallback(question);
+}
+
+function App() {
+  const [theme, setTheme] = useState('dark');
+  const isDark = theme === 'dark';
+
+  const [messages, setMessages] = useState([]);   // {role, content}
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentStream, setCurrentStream] = useState(null); // {content} while streaming
+  const [thinking, setThinking] = useState(false);
+  const [logoHover, setLogoHover] = useState(false);
+  const scrollRef = useRef(null);
+
+  const inChat = messages.length > 0 || isLoading;
+
+  const suggestions = [
+    "What has Nehemiah built?",
+    "What's his tech stack?",
+    "How do I reach him?",
+    "Who is Nehemiah?"
+  ];
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [messages, currentStream, thinking]);
+
+  const resetToLanding = () => {
+    if (isLoading) return;
+    setMessages([]); setInputValue(''); setCurrentStream(null); setThinking(false);
+  };
+
+  const sendMessage = async (textArg) => {
+    const text = (textArg != null ? textArg : inputValue).trim();
+    if (!text || isLoading) return;
+    setInputValue('');
+    setMessages((m) => [...m, { role: 'user', content: text }]);
+    setIsLoading(true);
+    setThinking(true);
+
+    const reply = await fetchNemiReply(text);
+    setThinking(false);
+
+    // stream word-by-word
+    const words = reply.split(/(\s+)/);
+    let acc = '';
+    setCurrentStream({ content: '' });
+    for (let i = 0; i < words.length; i++) {
+      acc += words[i];
+      setCurrentStream({ content: acc });
+      // pace: skip delay for pure-whitespace tokens
+      if (!/^\s+$/.test(words[i])) {
+        await new Promise((r) => setTimeout(r, 26 + Math.random() * 34));
+      }
+    }
+    setMessages((m) => [...m, { role: 'assistant', content: reply }]);
+    setCurrentStream(null);
+    setIsLoading(false);
+  };
+
+  const txt = isDark ? 'text-white' : 'text-black';
+  const txtMuted = isDark ? 'text-white/80 hover:text-white' : 'text-black/70 hover:text-black';
+  const placeholder = isDark ? 'placeholder:text-white/40' : 'placeholder:text-black/40';
+  const glassMod = isDark ? '' : 'is-light';
+  const submitBtn = isDark
+    ? 'bg-white text-black hover:bg-white/90'
+    : 'bg-black text-white hover:bg-black/90';
+
+  // Top + bottom scrims; in chat we deepen the bottom so the input & text stay readable
+  const baseScrim = isDark
+    ? 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.7) 100%)'
+    : 'linear-gradient(180deg, rgba(245,245,245,0.4) 0%, rgba(245,245,245,0) 30%, rgba(245,245,245,0) 55%, rgba(245,245,245,0.78) 100%)';
+  const heroScrim = isDark
+    ? 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.45) 100%)'
+    : 'linear-gradient(180deg, rgba(245,245,245,0.25) 0%, rgba(245,245,245,0) 35%, rgba(245,245,245,0) 65%, rgba(245,245,245,0.45) 100%)';
+
+  return (
+    <div className={`h-screen overflow-hidden relative flex flex-col ${isDark ? 'bg-black' : 'bg-[#f5f5f5]'}`}>
+      <VideoBg src={isDark ? "uploads/dark-bg.mp4" : "uploads/light-bg.mp4"} />
+      <div className="scrim" style={{ background: inChat ? baseScrim : heroScrim }} />
+
+      {/* "different world" wash — fades in while the Nemi logo is hovered */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out"
+        style={{
+          opacity: logoHover ? 1 : 0,
+          background: isDark
+            ? 'radial-gradient(120% 90% at 10% 0%, rgba(170,222,255,0.26) 0%, rgba(120,180,255,0.10) 35%, rgba(0,0,0,0) 65%), radial-gradient(100% 100% at 100% 100%, rgba(40,80,160,0.22), rgba(0,0,0,0) 60%)'
+            : 'radial-gradient(120% 90% at 10% 0%, rgba(6,14,30,0.42) 0%, rgba(20,40,80,0.22) 35%, rgba(255,255,255,0) 65%), radial-gradient(100% 100% at 100% 100%, rgba(170,222,255,0.28), rgba(255,255,255,0) 60%)'
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out mix-blend-overlay"
+        style={{ opacity: logoHover ? 1 : 0, background: 'radial-gradient(60% 60% at 12% 5%, rgba(170,222,255,0.5), rgba(0,0,0,0) 70%)' }}
+      />
+
+      {/* Nav */}
+      <nav className="relative z-20 pl-6 pr-6 py-6 shrink-0">
+        <div className="flex items-center justify-between max-w-5xl mx-auto gap-4">
+          <div className={`liquid-glass ${glassMod} rounded-full pl-3 pr-3 py-2 flex items-center gap-1`}>
+            <button
+              onClick={resetToLanding}
+              onMouseEnter={() => setLogoHover(true)}
+              onMouseLeave={() => setLogoHover(false)}
+              className={`nemi-logo ${isDark ? 'dark' : 'light'} ${txt} flex items-center gap-2`}
+            >
+              <Sparkles size={20} />
+              <span className="font-semibold text-base tracking-tight">Nemi</span>
+            </button>
+            <div className="hidden md:flex items-center gap-0.5 ml-1">
+              <a href="#" className={`nav-link ${isDark ? 'dark' : 'light'} ${txtMuted} text-sm font-medium`}>Profile</a>
+              <a href="#" className={`nav-link ${isDark ? 'dark' : 'light'} ${txtMuted} text-sm font-medium`}>Projects</a>
+              <a href="#" className={`nav-link ${isDark ? 'dark' : 'light'} ${txtMuted} text-sm font-medium`}>About</a>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {inChat && (
+              <button
+                onClick={resetToLanding}
+                className={`liquid-glass ${glassMod} rounded-full px-3.5 py-2 flex items-center gap-1.5 text-sm transition-all ${isDark ? 'text-white/80 hover:text-white' : 'text-black/70 hover:text-black'}`}
+              >
+                <Plus size={15} /> New
+              </button>
+            )}
+            <ThemeToggle theme={theme} setTheme={setTheme} />
+          </div>
+        </div>
+      </nav>
+
+      {inChat ? (
+        /* ---------------- CHAT VIEW ---------------- */
+        <div className="relative z-10 flex-1 flex flex-col min-h-0">
+          <div ref={scrollRef} className="chat-scroll flex-1 overflow-y-auto px-5">
+            <div className="max-w-2xl mx-auto w-full py-6 flex flex-col gap-7">
+              {messages.map((m, i) => (
+                <MessageBubble key={i} role={m.role} content={m.content} isDark={isDark} />
+              ))}
+              {(thinking || currentStream) && (
+                <MessageBubble
+                  role="assistant"
+                  isDark={isDark}
+                  thinking={thinking}
+                  isStreaming={!!currentStream}
+                  content={currentStream ? currentStream.content : ''}
+                />
+              )}
+            </div>
+          </div>
+          <div className="shrink-0 px-5 pb-7 pt-2">
+            <div className="max-w-2xl mx-auto w-full">
+              <InputBar
+                value={inputValue}
+                onChange={setInputValue}
+                onSend={() => sendMessage()}
+                disabled={isLoading}
+                isDark={isDark}
+                placeholder="Ask Nemi anything…"
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* ---------------- LANDING / HERO ---------------- */
+        <React.Fragment>
+          <div className={`relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[10%] ${txt}`}>
+            <h1
+              className="text-5xl md:text-6xl lg:text-7xl mb-10 tracking-tight whitespace-nowrap"
+              style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontWeight: 400, letterSpacing: '-0.045em' }}
+            >
+              Ask Nemi <span style={{ fontStyle: 'italic', fontWeight: 300, opacity: 0.85 }}>everything.</span>
+            </h1>
+
+            <div className="max-w-xl w-full pt-12 md:pt-16 space-y-5">
+              <InputBar
+                value={inputValue}
+                onChange={setInputValue}
+                onSend={() => sendMessage()}
+                disabled={isLoading}
+                isDark={isDark}
+                placeholder="Enter your question"
+              />
+              <SuggestedQuestions items={suggestions} onSelect={(q) => sendMessage(q)} disabled={isLoading} isDark={isDark} />
+            </div>
+          </div>
+
+          {/* Social footer */}
+          <div className="relative z-10 flex justify-center gap-4 pb-12 shrink-0">
+            <a href="#" aria-label="Instagram"
+               className={`liquid-glass ${glassMod} rounded-full p-4 transition-all ${isDark ? 'text-white/80 hover:text-white hover:bg-white/5' : 'text-black/70 hover:text-black hover:bg-black/5'}`}>
+              <Instagram size={20} />
+            </a>
+            <a href="#" aria-label="GitHub"
+               className={`liquid-glass ${glassMod} rounded-full p-4 transition-all ${isDark ? 'text-white/80 hover:text-white hover:bg-white/5' : 'text-black/70 hover:text-black hover:bg-black/5'}`}>
+              <Github size={20} />
+            </a>
+            <a href="#" aria-label="WhatsApp"
+               className={`liquid-glass ${glassMod} rounded-full p-4 transition-all ${isDark ? 'text-white/80 hover:text-white hover:bg-white/5' : 'text-black/70 hover:text-black hover:bg-black/5'}`}>
+              <WhatsApp size={20} />
+            </a>
+          </div>
+        </React.Fragment>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
