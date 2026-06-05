@@ -2,6 +2,7 @@ import { embed, chat } from "@/lib/gemini";
 import { matchChunks } from "@/lib/match-chunks";
 import { buildPrompt, type InboundMessage } from "@/lib/build-prompt";
 import { getClientIp, hit } from "@/lib/rate-limit";
+import { checkDailyLimit } from "@/lib/daily-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,9 +15,11 @@ const MAX_TOTAL_CHARS = 16000; // the whole transcript posted in one body
 
 export async function POST(req: Request) {
   try {
-    // 0. Rate-limit by client IP — a cheap in-memory guard against one client
-    //    hammering the endpoint (refresh spam, runaway loops). See rate-limit.ts.
-    const rl = hit(getClientIp(req));
+    const ip = getClientIp(req);
+
+    // 0. Burst guard (in-memory) — one client hammering the endpoint
+    //    (refresh spam, runaway loops). See rate-limit.ts.
+    const rl = hit(ip);
     if (!rl.ok) {
       return Response.json(
         { error: "Waduh kebanyakan pesan beruntun — istirahat bentar ya, terus coba lagi. 😅" },
@@ -29,6 +32,17 @@ export async function POST(req: Request) {
           },
         },
       );
+    }
+
+    // 0b. Per-day cap (Supabase-backed) — survives serverless cold starts unlike
+    //     the in-memory burst guard. Fails OPEN if the usage table isn't set up.
+    const daily = await checkDailyLimit(ip);
+    if (!daily.ok) {
+      const msg =
+        daily.reason === "global"
+          ? "Lagi rame banget nih — AI Nehemiah istirahat dulu, balik lagi besok ya. 🙏"
+          : "Udah lumayan banyak nanya hari ini 😄 lanjut besok ya, biar yang lain juga kebagian.";
+      return Response.json({ error: msg }, { status: 429, headers: { "Retry-After": "3600" } });
     }
 
     const body = (await req.json()) as { messages?: InboundMessage[] };
