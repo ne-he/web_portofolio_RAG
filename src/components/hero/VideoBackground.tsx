@@ -33,6 +33,34 @@ export function VideoBackground({ src }: { src: string }) {
     return () => v.removeEventListener("loadeddata", tryPlay);
   }, [src]);
 
+  // Seamless loop: native `loop` re-seeks at end-of-stream, which can visibly
+  // hitch on repeat. When supported, wrap back a few ms early via
+  // requestVideoFrameCallback (per-frame precise) so playback never hits the
+  // end-of-stream stall. Falls back to the native `loop` attribute otherwise.
+  useEffect(() => {
+    const v = videoRef.current as
+      | (HTMLVideoElement & {
+          requestVideoFrameCallback?: (
+            cb: (now: number, meta: { mediaTime: number }) => void,
+          ) => number;
+          cancelVideoFrameCallback?: (handle: number) => void;
+        })
+      | null;
+    if (!v || typeof v.requestVideoFrameCallback !== "function") return;
+    v.loop = false; // handled manually below
+    let handle = 0;
+    const EPS = 0.05; // seconds before the true end to wrap back to start
+    const tick = (_now: number, meta: { mediaTime: number }) => {
+      if (v.duration && meta.mediaTime >= v.duration - EPS) v.currentTime = 0;
+      handle = v.requestVideoFrameCallback!(tick);
+    };
+    handle = v.requestVideoFrameCallback(tick);
+    return () => {
+      v.cancelVideoFrameCallback?.(handle);
+      v.loop = true;
+    };
+  }, [src]);
+
   return (
     <video
       ref={videoRef}
