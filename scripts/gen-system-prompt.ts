@@ -4,8 +4,8 @@ import matter from "gray-matter";
 
 // Generates src/lib/chatbot-instructions.ts from the markdown source so we never
 // hand-escape ~230 lines of backtick-heavy content into a template literal.
-const DEFAULT_SRC =
-  "C:/Users/wilhe/OneDrive/Documents/nemi/cv/prujek/Ongoing/Ult/cv-data/_chatbot-instructions.md";
+// Source now lives in-repo (an external cv-data path got lost on a folder move).
+const DEFAULT_SRC = resolve(process.cwd(), "prompts/chatbot-instructions.md");
 
 const src = process.argv[2] ?? DEFAULT_SRC;
 const out = resolve(process.cwd(), "src/lib/chatbot-instructions.ts");
@@ -21,7 +21,7 @@ const escaped = body
   .replace(/\$\{/g, "\\${");
 
 const file = `// AUTO-GENERATED — do not edit by hand.
-// Source: cv-data/_chatbot-instructions.md
+// Source: prompts/chatbot-instructions.md
 // Regenerate after editing the source: npx tsx scripts/gen-system-prompt.ts
 
 /**
