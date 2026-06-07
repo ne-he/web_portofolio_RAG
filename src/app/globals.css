@@ -180,6 +180,16 @@
   );
 }
 
+/* Input box: stronger blur + scrim so typed text stays legible over the bright video */
+.liquid-glass.is-input {
+  background: rgba(8, 12, 18, 0.45);
+  backdrop-filter: blur(22px) saturate(1.1);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+}
+.liquid-glass.is-input.is-light {
+  background: rgba(255, 255, 255, 0.6);
+}
+
 .scrim {
   position: absolute;
   inset: 0;

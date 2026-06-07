@@ -45,7 +45,7 @@ export function InputBar({
 
   return (
     <div
-      className={`liquid-glass accent-focus ${isDark ? "" : "is-light"} flex items-end gap-3 rounded-3xl py-2.5 pl-5 pr-2.5`}
+      className={`liquid-glass accent-focus is-input ${isDark ? "" : "is-light"} flex items-end gap-3 rounded-3xl py-2.5 pl-5 pr-2.5`}
     >
       <textarea
         ref={taRef}
