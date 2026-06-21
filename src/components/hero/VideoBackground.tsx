@@ -86,31 +86,46 @@ export function VideoBackground({ src }: { src: string }) {
     "absolute inset-0 h-full w-full scale-[1.32] translate-y-[10%] object-cover";
 
   return (
+    // Dark-navy placeholder shown INSTANTLY (matches the particle-face tone) so
+    // the first paint looks intentional instead of a black "broken" screen while
+    // the ~10MB clip buffers. The videos fade in on top once the first frame is
+    // decoded.
     <div
       aria-hidden
-      className={`absolute inset-0 transition-opacity duration-700 ${
-        ready ? "opacity-100" : "opacity-0"
-      }`}
+      className="absolute inset-0"
+      style={{
+        background:
+          "radial-gradient(120% 90% at 50% 32%, #0c1018 0%, #05070c 62%, #010204 100%)",
+      }}
     >
-      <video
-        ref={aRef}
-        src={src}
-        muted
-        playsInline
-        preload="auto"
-        onCanPlay={() => setReady(true)}
-        className={videoClass}
-        style={{ opacity: 1 }}
-      />
-      <video
-        ref={bRef}
-        src={src}
-        muted
-        playsInline
-        preload="auto"
-        className={videoClass}
-        style={{ opacity: 0 }}
-      />
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <video
+          ref={aRef}
+          src={src}
+          muted
+          playsInline
+          preload="auto"
+          // loadeddata fires when the FIRST frame is ready — earlier than canplay
+          // (which waits until it can play through), so the face appears sooner.
+          onLoadedData={() => setReady(true)}
+          onCanPlay={() => setReady(true)}
+          className={videoClass}
+          style={{ opacity: 1 }}
+        />
+        <video
+          ref={bRef}
+          src={src}
+          muted
+          playsInline
+          preload="auto"
+          className={videoClass}
+          style={{ opacity: 0 }}
+        />
+      </div>
     </div>
   );
 }

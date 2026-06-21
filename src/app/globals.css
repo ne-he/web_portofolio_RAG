@@ -190,6 +190,22 @@
   background: rgba(255, 255, 255, 0.6);
 }
 
+/* Suggestion pills: enough blur + scrim so the label reads over the busy video */
+.liquid-glass.is-pill {
+  background: rgba(8, 12, 18, 0.42);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+}
+.liquid-glass.is-pill:hover {
+  background: rgba(8, 12, 18, 0.55);
+}
+.liquid-glass.is-pill.is-light {
+  background: rgba(255, 255, 255, 0.62);
+}
+.liquid-glass.is-pill.is-light:hover {
+  background: rgba(255, 255, 255, 0.78);
+}
+
 .scrim {
   position: absolute;
   inset: 0;

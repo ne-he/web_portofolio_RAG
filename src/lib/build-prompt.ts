@@ -72,10 +72,15 @@ export function buildPrompt(
   const turns = enforceAlternation(toChatTurns(history)).slice(-MAX_HISTORY);
   while (turns.length && turns[0].role !== "user") turns.shift();
 
+  // Reminder pinned right next to the question — strongest position for adherence.
+  // Backs up system-prompt rule #00: always answer in the visitor's own language.
+  const langReminder =
+    "[Reminder: reply in the SAME language as the visitor's question below — English question → full English answer, Indonesian → Indonesian. Match it exactly.]";
+
   const context = formatContext(contextChunks);
   const prompt = context
-    ? `${context}\n\n---\n\nPertanyaan pengunjung:\n${userMessage}`
-    : userMessage;
+    ? `${context}\n\n---\n\n${langReminder}\n\nPertanyaan pengunjung:\n${userMessage}`
+    : `${langReminder}\n\n${userMessage}`;
 
   return { systemInstruction: SYSTEM_PROMPT, history: turns, prompt };
 }

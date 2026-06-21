@@ -1,8 +1,87 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Github, Instagram, WhatsApp } from "./icons";
 import { InputBar } from "@/components/chat/InputBar";
 import { SuggestedQuestions } from "@/components/chat/SuggestedQuestions";
+
+// Typed intro shown on the landing before the visitor sends anything.
+// Brand-consistent with "Nemi" everywhere else on the site. Want the
+// Jarvis-flavored line instead? Swap to: "Hi, I'm Jarviah — Jarvis × Nehemiah. How can I help you?"
+const GREETING = "Hi, I'm Nemi — Nehemiah's AI. How can I help you?";
+
+/** Types `text` out one character at a time with a blinking cursor. */
+function Typewriter({
+  text,
+  isDark,
+  speed = 45,
+  startDelay = 350,
+}: {
+  text: string;
+  isDark: boolean;
+  speed?: number;
+  startDelay?: number;
+}) {
+  const [shown, setShown] = useState("");
+  const [done, setDone] = useState(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  useEffect(() => {
+    // Respect reduced-motion: render the whole line instantly.
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      timers.current.push(
+        setTimeout(() => {
+          setShown(text);
+          setDone(true);
+        }, 0),
+      );
+      const snapshot = timers.current;
+      return () => snapshot.forEach(clearTimeout);
+    }
+
+    let i = 0;
+    const tick = () => {
+      i += 1;
+      setShown(text.slice(0, i));
+      if (i < text.length) {
+        timers.current.push(setTimeout(tick, speed + Math.random() * 35));
+      } else {
+        setDone(true);
+      }
+    };
+    timers.current.push(setTimeout(tick, startDelay));
+
+    const snapshot = timers.current;
+    return () => snapshot.forEach(clearTimeout);
+  }, [text, speed, startDelay]);
+
+  return (
+    <p
+      aria-label={text}
+      className={`min-h-[1.6em] text-lg md:text-xl ${isDark ? "text-white/80" : "text-black/70"}`}
+      style={{
+        fontFamily: "var(--font-space-grotesk), system-ui, sans-serif",
+        fontStyle: "italic",
+        fontWeight: 300,
+        textShadow: isDark
+          ? "0 1px 18px rgba(0,0,0,0.5)"
+          : "0 1px 18px rgba(245,245,245,0.8)",
+      }}
+    >
+      <span aria-hidden="true">{shown}</span>
+      <span
+        aria-hidden="true"
+        className={done ? "opacity-0" : "ml-0.5 inline-block animate-pulse"}
+        style={{ transition: "opacity 0.4s ease" }}
+      >
+        |
+      </span>
+    </p>
+  );
+}
 
 /**
  * The landing (zero-message) state: the "Ask Nemi everything." headline, the
@@ -51,7 +130,9 @@ export function HeroLanding({
           </span>
         </h1>
 
-        <div className="w-full max-w-xl space-y-5 pt-12 md:pt-16">
+        <Typewriter text={GREETING} isDark={isDark} />
+
+        <div className="w-full max-w-xl space-y-5 pt-8 md:pt-12">
           <InputBar
             value={value}
             onChange={onChange}

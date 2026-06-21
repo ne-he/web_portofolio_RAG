@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, type Content } from "@google/generative-ai";
+import { GoogleGenerativeAI, type Content, type GenerationConfig } from "@google/generative-ai";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -81,7 +81,15 @@ export async function* chat({
   history,
   prompt,
 }: ChatParams): AsyncIterable<string> {
-  const model = genAI.getGenerativeModel({ model: CHAT_MODEL, systemInstruction });
+  // gemini-2.5-flash "thinks" before answering by default, which adds several
+  // seconds of first-token latency. This bot only synthesizes already-retrieved
+  // context, so thinking is wasted effort — disable it for a snappy reply.
+  // The legacy SDK has no typed field for this but forwards `generationConfig`
+  // verbatim to the REST API, which honors thinkingBudget: 0 on 2.5 models.
+  const generationConfig = {
+    thinkingConfig: { thinkingBudget: 0 },
+  } as unknown as GenerationConfig;
+  const model = genAI.getGenerativeModel({ model: CHAT_MODEL, systemInstruction, generationConfig });
   const session = model.startChat({ history: history as Content[] });
   const result = await session.sendMessageStream(prompt);
   for await (const chunk of result.stream) {

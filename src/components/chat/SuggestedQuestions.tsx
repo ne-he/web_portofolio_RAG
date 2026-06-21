@@ -25,10 +25,10 @@ export function SuggestedQuestions({ onSelect, disabled, isDark = true }: Sugges
           disabled={disabled}
           onClick={() => onSelect(q)}
           className={cn(
-            "liquid-glass rounded-full px-4 py-2 text-[13px] transition-all disabled:opacity-40",
+            "liquid-glass is-pill rounded-full px-4 py-2 text-[13px] transition-all disabled:opacity-40",
             isDark
-              ? "text-white/75 hover:bg-white/5 hover:text-white"
-              : "is-light text-black/70 hover:bg-black/5 hover:text-black",
+              ? "text-white/90 hover:text-white"
+              : "is-light text-black/80 hover:text-black",
           )}
         >
           {q}

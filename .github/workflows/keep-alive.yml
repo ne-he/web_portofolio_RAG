@@ -1,0 +1,47 @@
+name: Keep Supabase alive
+
+# Supabase free-tier projects pause after ~7 days of no activity. This workflow
+# hits the Supabase REST API directly on a schedule so the database always sees
+# recent traffic and never pauses. It does NOT depend on Vercel being deployed.
+#
+# SETUP (once) — add two repository secrets:
+#   Repo → Settings → Secrets and variables → Actions → New repository secret
+#     SUPABASE_URL       → e.g. https://blwrbiyorubpagjahnfk.supabase.co
+#     SUPABASE_ANON_KEY  → the anon/public key (from .env.local: NEXT_PUBLIC_SUPABASE_ANON_KEY)
+#   (The anon key is browser-public by design, so this is safe.)
+#
+# After pushing this file you can also trigger it once manually:
+#   Repo → Actions → "Keep Supabase alive" → Run workflow.
+
+on:
+  schedule:
+    - cron: "0 6 */2 * *" # every 2 days at 06:00 UTC — safe margin under the 7-day window
+  workflow_dispatch: {} # manual run button in the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST (registers DB activity)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::error::Missing SUPABASE_URL or SUPABASE_ANON_KEY repo secret — see setup notes in this file."
+            exit 1
+          fi
+          TARGET="$SUPABASE_URL/rest/v1/chunks?select=id&limit=1"
+          echo "Pinging $TARGET"
+          code=$(curl -s -o /tmp/body.json -w "%{http_code}" --max-time 30 \
+            "$TARGET" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+          echo "HTTP $code"
+          head -c 200 /tmp/body.json || true
+          echo
+          if [ "$code" != "200" ]; then
+            echo "::error::Supabase ping failed (HTTP $code). DB may be paused or the key/URL is wrong."
+            exit 1
+          fi
+          echo "✅ Supabase pinged successfully — pause timer reset."
