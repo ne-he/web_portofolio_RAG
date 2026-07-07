@@ -116,12 +116,15 @@ export function VideoBackground({ src }: { src: string }) {
           className={videoClass}
           style={{ opacity: 1 }}
         />
+        {/* Standby copy for the loop cross-fade. preload="none" so the browser
+            downloads the ~clip only ONCE up front (via the active video above);
+            this one starts from the HTTP cache when we play it near the seam. */}
         <video
           ref={bRef}
           src={src}
           muted
           playsInline
-          preload="auto"
+          preload="none"
           className={videoClass}
           style={{ opacity: 0 }}
         />

@@ -6,12 +6,6 @@ import { useTheme } from "@/components/layout/ThemeProvider";
 
 const EXPERIENCE = [
   {
-    role: "AI/ML Engineer — Intern",
-    org: "Perusahaan multinasional (bidang AI)",
-    time: "Sekarang",
-    desc: "Terlibat dalam proyek AI/ML — fase menapak pengalaman industri.",
-  },
-  {
     role: "Part-time Marketer",
     org: "BINUS University Admission, Kemanggisan",
     time: "2 tahun",
