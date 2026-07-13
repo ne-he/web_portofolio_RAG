@@ -9,7 +9,9 @@ import { supabaseAdmin } from "./supabase";
 // hasn't been run yet), we allow the request rather than breaking chat. Enforce
 // it by running that SQL once + setting the DAILY_LIMIT_* env vars.
 
-const IP_LIMIT = Number(process.env.DAILY_LIMIT_PER_IP ?? 8);
+// Default 25/day: a serious recruiter conversation can easily run 10-15
+// questions — blocking them mid-interview at 8 would be a terrible look.
+const IP_LIMIT = Number(process.env.DAILY_LIMIT_PER_IP ?? 25);
 const GLOBAL_LIMIT = Number(process.env.DAILY_LIMIT_GLOBAL ?? 0); // 0 = no global cap
 const SALT = process.env.DAILY_LIMIT_SALT ?? "ai-nehemiah";
 

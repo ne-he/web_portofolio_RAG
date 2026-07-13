@@ -12,10 +12,10 @@ import { supabaseAdmin } from "../src/lib/supabase";
 // Config
 // ----------------------------------------------------------------------------
 // Knowledge-base location. Override with env `CV_DATA_DIR` or `--source <path>`.
-// (The folder was moved out of Ongoing/Ult — keep this pointed at the real one.)
+// (The folder moved again — now lives directly under nemi/cv. Keep this current.)
 const DEFAULT_SOURCE =
   process.env.CV_DATA_DIR ??
-  "C:/Users/wilhe/OneDrive/Documents/nemi/cv/prujek/End/backup/Ult/cv-data";
+  "C:/Users/wilhe/OneDrive/Documents/nemi/cv/cv-data";
 
 const MAX_TOKENS = 800; // upper bound per chunk
 const MAX_CHARS = MAX_TOKENS * 4; // ~4 chars/token => 3200 chars
