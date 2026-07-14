@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Workspace eksperimen lokal (berisi copy repo lain, 100MB+) — bukan bagian project ini
+web_porto_V2/
