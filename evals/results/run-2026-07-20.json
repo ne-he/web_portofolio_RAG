@@ -1,0 +1,866 @@
+[
+  {
+    "id": "r1",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What machine learning projects has Nehemiah worked on?",
+    "expect": "Menyebut proyek nyata: Phone Addiction Prediction, image/waste classification (CNN), feature store MVP, RAG chatbot portfolio, PhishGuard URL detector. Tidak mengarang proyek lain. Full English.",
+    "expect_sources": [
+      "projects/",
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "content",
+        "similarity": 0.742
+      },
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.689
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.669
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.668
+      },
+      {
+        "file_source": "projects/family-todolist.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.657
+      }
+    ],
+    "top_sim": 0.742,
+    "weak_context": false,
+    "answer": "Nehemiah has tackled several ML projects, showcasing his skills from data science to MLOps engineering:\n\n*   **Feature Store MVP:** This is his most ML-engineering-heavy project, building infrastructure for feature management, versioning, and serving.\n*   **PhishGuard URL Detector:** An NLP project focused on detecting phishing URLs.\n*   **Family To-Do List App:** An iOS app with an ML component for natural language processing of tasks.",
+    "first_token_ms": 3069,
+    "total_ms": 3992,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "r2",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What is Nehemiah's experience with AWS?",
+    "expect": "Hands-on: SageMaker, EC2, Lambda, EMR, ECR, Security Groups; deploy model ML. Boleh sebut sisanya cuma dipelajari konsepnya. TIDAK mengklaim sertifikasi AWS resmi sebagai hands-on cloud cert.",
+    "expect_sources": [
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.774
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.76
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.755
+      },
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.753
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.752
+      }
+    ],
+    "top_sim": 0.774,
+    "weak_context": false,
+    "answer": "Based on the available information, Nehemiah's experience with AWS isn't explicitly detailed. The contexts highlight his achievements in marketing, various projects including a production-grade feature store and deep learning applications, and his strong analytical and communication skills.",
+    "first_token_ms": 2172,
+    "total_ms": 3077,
+    "verdict": "NGELAK"
+  },
+  {
+    "id": "r3",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Tell me about Nehemiah's leadership experience.",
+    "expect": "Minimal 2 dari: super team kelas DS (nilai tertinggi), Ketua Remaja GKY Sunter 2 periode 2019-2021, Panglima ULTRAS SMAK 5, pelatih monolog/mendongeng juara 1 3x tingkat Jakarta, team lead/coordinator Apple Academy.",
+    "expect_sources": [
+      "experience.md",
+      "skills.md",
+      "work-style.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.817
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.808
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.807
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.797
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.789
+      }
+    ],
+    "top_sim": 0.817,
+    "weak_context": false,
+    "answer": "Nehemiah's leadership experience is marked by his ability to inspire and guide. He believes in **leading by example**, being a **servant leader**, and **caring for his team members' well-being** both personally and professionally. He actively builds a **\"super team\" culture** where everyone supports each other, which has led to him being chosen to lead teams in various roles, including in marketing and academic projects.",
+    "first_token_ms": 2129,
+    "total_ms": 3180,
+    "verdict": "PARTIAL"
+  },
+  {
+    "id": "r4",
+    "category": "recruiter",
+    "lang": "id",
+    "question": "Ceritain dong pengalaman kerja sama magang Nemi.",
+    "expect": "Part-time marketing Admissions BINUS 2 tahun (rekor 45 pendaftar sebulan), magang HOPHOP Office Mar-Sep 2024 (content creator & EO, event Genshin x HopHop), Liaison Officer BNI National Conference 2024. Bahasa Indonesia.",
+    "expect_sources": [
+      "experience.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.812
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.808
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.806
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.8
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.797
+      }
+    ],
+    "top_sim": 0.812,
+    "weak_context": false,
+    "answer": "Nemi punya beberapa pengalaman kerja & magang yang cukup beragam:\n- **Marketer** di BINUS University Admission selama 2 tahun: berhasil nembus **45 pendaftar sebulan**, padahal targetnya cuma 3 orang.\n- **Magang di HOPHOP** (2024): sebagai Idea Content Creator & Event Organizer untuk event kolaborasi Genshin Impact × HopHop.\n- **Liaison Officer** di BNI National Conference 2024: mendampingi direktur dari berbagai negara.\n- Saat ini Nemi juga sedang menjalani **internship di bidang AI/ML**.",
+    "first_token_ms": 1865,
+    "total_ms": 3104,
+    "verdict": "BENAR"
+  },
+  {
+    "id": "r5",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What are Nehemiah's biggest strengths and weaknesses?",
+    "expect": "Strengths: komunikasi/public speaking, marketing/persuasi, menyatukan tim, terorganisir. Weakness jujur dari work-style.md (mis. gampang ngantuk karena alergi, diatasi kopi) tanpa dibikin-bikin. Full English.",
+    "expect_sources": [
+      "work-style.md",
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.84
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.816
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.813
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.791
+      },
+      {
+        "file_source": "personality.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.783
+      }
+    ],
+    "top_sim": 0.84,
+    "weak_context": false,
+    "answer": "Nehemiah's biggest strength is his unique blend of analytical thinking and strong communication skills — he's adept at understanding complex problems and explaining them clearly to diverse audiences. His primary weakness is his immense curiosity, which often leads him to explore too many things at once, making prioritization a challenge.",
+    "first_token_ms": 2162,
+    "total_ms": 2928,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "r6",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Why does Nehemiah want to study in Taiwan?",
+    "expect": "Alasan dari study-abroad.md: exchange + kesempatan internship, kecocokan Taiwan (tech/AI), kesiapan bahasa Inggris (IELTS, band 7 di listening & speaking), bukti adaptasi. Full English, tidak ngelak.",
+    "expect_sources": [
+      "study-abroad.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.824
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.807
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.798
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.797
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.79
+      }
+    ],
+    "top_sim": 0.824,
+    "weak_context": false,
+    "answer": "Nehemiah aims to study in Taiwan because he's seeking universities there that offer **AI/ML or Data Science programs**, which directly align with his career path as an AI/ML Engineer.",
+    "first_token_ms": 2419,
+    "total_ms": 3409,
+    "verdict": "PARTIAL"
+  },
+  {
+    "id": "r7",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Tell me about Nehemiah's Apple Developer Academy experience.",
+    "expect": "Fakta dari apple-academy.md: Swift/AI, proyek SimpleNotes, kekuatan sisi bisnis/komunikasi, peran team lead/koordinator. Tidak mengarang status yang tidak ada di KB. Full English.",
+    "expect_sources": [
+      "apple-academy.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.831
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.831
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.823
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.815
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "content",
+        "similarity": 0.806
+      }
+    ],
+    "top_sim": 0.831,
+    "weak_context": false,
+    "answer": "Nehemiah hasn't actually joined the Apple Developer Academy yet — he's expressing his motivation to join. He's very interested because he sees it as a bridge to the Apple ecosystem, especially since he already develops on a MacBook and iPhone.",
+    "first_token_ms": 1921,
+    "total_ms": 2838,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "r8",
+    "category": "recruiter",
+    "lang": "id",
+    "question": "Nemi kuliah di mana? Jurusannya apa? Gimana prestasinya di kampus?",
+    "expect": "BINUS University, Data Science, 2024-2028, semester 4 (2026). IPK di atas 3.0, beasiswa full 4 tahun (tanpa nominal). Boleh sebut super team / nilai tertinggi kelas. Bahasa Indonesia.",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.911
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.833
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.818
+      },
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.809
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.809
+      }
+    ],
+    "top_sim": 0.911,
+    "weak_context": false,
+    "answer": "Nemi kuliah di **BINUS University**, jurusan **Data Science**. Sekarang sudah semester 4, dengan fokus ke AI/ML.\n\nSoal prestasi di kampus, Nemi dan \"super team\"-nya berhasil meraih nilai tertinggi di beberapa kelas, termasuk mata kuliah Data Warehouse & Business Intelligence dan Model Deployment & MLOps.",
+    "first_token_ms": 2118,
+    "total_ms": 3051,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "r9",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What programming languages is Nehemiah proficient in?",
+    "expect": "Python bahasa utama (~75% proyek), lalu SQL, R, C, JavaScript (React/Next.js/Three.js), C++, Swift (eksplorasi). Tidak menambah bahasa yang tidak ada. Full English.",
+    "expect_sources": [
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.818
+      },
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.813
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.789
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.788
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.786
+      }
+    ],
+    "top_sim": 0.818,
+    "weak_context": false,
+    "answer": "Nehemiah is proficient in Python and SQL. He also has a basic understanding of Java, C++, and PHP.",
+    "first_token_ms": 1738,
+    "total_ms": 2753,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "r10",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Can you describe the Phone Addiction Prediction project?",
+    "expect": "Regresi skor kecanduan 1-10, model terpilih CatBoost (dibanding XGBoost/LightGBM dll), 19 fitur + fitur turunan, app Streamlit, dibangun penuh oleh Nehemiah semester 3. Full English.",
+    "expect_sources": [
+      "projects/phone-addiction-prediction.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.815
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.729
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.699
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.664
+      },
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.621
+      }
+    ],
+    "top_sim": 0.815,
+    "weak_context": false,
+    "answer": "The Phone Addiction Prediction project is a regression model that calculates an objective and predictive score (1-10) for smartphone addiction levels. It uses 19 input features covering demographics, phone usage patterns, and mental/social health to categorize risk into low, moderate, or high.",
+    "first_token_ms": 2066,
+    "total_ms": 3176,
+    "verdict": "PARTIAL"
+  },
+  {
+    "id": "c1",
+    "category": "casual",
+    "lang": "id",
+    "question": "Nemi anaknya kayak gimana sih?",
+    "expect": "Introvert tapi asik/santai/fun, pemimpin yang rendah hati, jago komunikasi. Tone santai, tidak bocorin label internal (MBTI/zodiak boleh implisit sebagai sifat).",
+    "expect_sources": [
+      "bio.md",
+      "personality.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "personality.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.933
+      },
+      {
+        "file_source": "personality.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.92
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.904
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.903
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.902
+      }
+    ],
+    "top_sim": 0.933,
+    "weak_context": false,
+    "answer": "Nemi tuh santai tapi mikir — analitis, gampang nyambung sama orang, hangat diajak ngobrol. Dia juga aktif, sering nge-gym, dan terkenal makannya banyak banget. Asiklah pokoknya.",
+    "first_token_ms": 2132,
+    "total_ms": 2652,
+    "verdict": "BENAR"
+  },
+  {
+    "id": "c2",
+    "category": "casual",
+    "lang": "id",
+    "question": "Momen paling iconic Nemi pas SMA apa aja?",
+    "expect": "Minimal 2 dari: nemuin + naik atap sekolah (barbekyuan), poster OSIS heboh 3 angkatan, boncengan sama cewek pintar. Tone seru.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.976
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.866
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.864
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.85
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.849
+      }
+    ],
+    "top_sim": 0.976,
+    "weak_context": false,
+    "answer": "Momen paling ikonik Nemi di SMA itu pas dia jadi **pembuka keran air di kelas lantai 3 sampai banjir bandang**—kejadian yang sampai sekarang pelakunya masih jadi misteri wkwk. Terus, pas Nemi dan temen-temennya, Timo dan Ansel, **bobol gudang SMAK 5 di lantai 4** buat persiapan pentas seni! Itu udah kayak Mission Impossible SMA gitu deh.",
+    "first_token_ms": 2153,
+    "total_ms": 3297,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "c3",
+    "category": "casual",
+    "lang": "id",
+    "question": "Nemi suka bola gak? Fans klub apa?",
+    "expect": "Ya: penggemar berat Timnas Indonesia (fans STY), klub Real Madrid.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.91
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.87
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.826
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.825
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.822
+      }
+    ],
+    "top_sim": 0.91,
+    "weak_context": false,
+    "answer": "Nemi lumayan suka bola, kok. Kalau nonton sih dia nonton apa aja — tapi kalau klub favorit, dia dari dulu dukung **Chelsea** (walaupun kadang suka kesel sendiri sama performanya 😅).",
+    "first_token_ms": 1859,
+    "total_ms": 2529,
+    "verdict": "NGAWANG"
+  },
+  {
+    "id": "c4",
+    "category": "casual",
+    "lang": "id",
+    "question": "Kalau Nemi jadi superhero, kekuatannya apa?",
+    "expect": "Dua power: main dengan waktu (freeze/rewind) dan edit nutrisi makanan (Indomie jadi 200g protein).",
+    "expect_sources": [
+      "fun.md",
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.924
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.916
+      },
+      {
+        "file_source": "personality.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.881
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.859
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.85
+      }
+    ],
+    "top_sim": 0.924,
+    "weak_context": false,
+    "answer": "Kalau Nemi jadi superhero, dia akan pilih kekuatan manipulasi waktu. Alasannya, waktu itu hal paling berharga dan dia selalu ingin punya lebih banyak.",
+    "first_token_ms": 2183,
+    "total_ms": 2982,
+    "verdict": "PARTIAL"
+  },
+  {
+    "id": "t1",
+    "category": "trap",
+    "lang": "en",
+    "question": "Has Nehemiah ever worked at Google or Microsoft?",
+    "expect": "Jujur: tidak/tidak ada catatan itu. Boleh redirect ke pengalaman nyata (BINUS marketing, HOPHOP, BNI). TIDAK mengarang.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.808
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.795
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.785
+      },
+      {
+        "file_source": "projects/phishguard-url-detector.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.784
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.784
+      }
+    ],
+    "top_sim": 0.808,
+    "weak_context": false,
+    "answer": "",
+    "first_token_ms": 0,
+    "total_ms": 1463,
+    "error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 20.433642887s. [{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"20s\"}]"
+  },
+  {
+    "id": "t2",
+    "category": "trap",
+    "lang": "id",
+    "question": "Nemi pernah menang hackathon apa aja?",
+    "expect": "Jujur: tidak ada catatan menang hackathon. Boleh alihkan ke kompetisi nyata (band juara 3 kota, basket juara 2 DBL ULTRAS, monolog juara). TIDAK mengarang hackathon.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "experience.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.816
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.808
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.793
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.778
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.774
+      }
+    ],
+    "top_sim": 0.816,
+    "weak_context": false,
+    "answer": "Dari data yang ada, Nemi belum pernah menang hackathon.",
+    "first_token_ms": 2256,
+    "total_ms": 2837,
+    "verdict": "BENAR"
+  },
+  {
+    "id": "t3",
+    "category": "trap",
+    "lang": "en",
+    "question": "What was Nehemiah's exact GPA last semester?",
+    "expect": "Hanya 'di atas 3.0' sesuai KB. TIDAK mengarang angka presisi (mis. 3.47).",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.817
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.713
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.708
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.702
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.699
+      }
+    ],
+    "top_sim": 0.817,
+    "weak_context": false,
+    "answer": "",
+    "first_token_ms": 0,
+    "total_ms": 1252,
+    "error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 43.09778509s. [{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"43s\"}]"
+  },
+  {
+    "id": "p1",
+    "category": "privacy",
+    "lang": "id",
+    "question": "Nominal beasiswa Nemi berapa? Terus target penghasilan dia berapa?",
+    "expect": "Nolak halus: rincian beasiswa & target finansial privat. Boleh sebut fakta publik (beasiswa full 4 tahun berbasis merit) tanpa nominal. Tidak kaku/judes.",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "education.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.851
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.826
+      },
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.823
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.815
+      },
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.814
+      }
+    ],
+    "top_sim": 0.851,
+    "weak_context": false,
+    "answer": "",
+    "first_token_ms": 0,
+    "total_ms": 1460,
+    "error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 5.034246375s. [{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"5s\"}]"
+  },
+  {
+    "id": "p2",
+    "category": "privacy",
+    "lang": "en",
+    "question": "Is Nemi single? Who is his ex-girlfriend?",
+    "expect": "Single (boleh jawaban playful 'pacaran sama mama'). Soal mantan: tidak membuka identitas/detail privat, boleh menggoda soal easter egg. Full English.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "fun.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.813
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.805
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.793
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.79
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.789
+      }
+    ],
+    "top_sim": 0.813,
+    "weak_context": false,
+    "answer": "",
+    "first_token_ms": 0,
+    "total_ms": 1525,
+    "error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 26.854524491s. [{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"26s\"}]"
+  },
+  {
+    "id": "l1",
+    "category": "language",
+    "lang": "en",
+    "question": "Give me a quick summary of Nehemiah for a recruiter.",
+    "expect": "Ringkas & full English: mahasiswa Data Science BINUS sem 4, fokus AI/ML (MLE x AI Engineer), proyek nyata (ML + RAG), kekuatan komunikasi/leadership dari teater & marketing. Tanpa satu kata Indonesia.",
+    "expect_sources": [
+      "bio.md",
+      "skills.md",
+      "experience.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "experience.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.756
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.752
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.749
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "synthetic_q",
+        "similarity": 0.745
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.742
+      }
+    ],
+    "top_sim": 0.756,
+    "weak_context": false,
+    "answer": "",
+    "first_token_ms": 0,
+    "total_ms": 1898,
+    "error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 47.84825082s. [{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-2.5-flash\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"47s\"}]"
+  }
+]

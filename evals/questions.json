@@ -1,0 +1,166 @@
+{
+  "version": "2026-07-20",
+  "note": "Test set eval Ask Nemi. Kategori: recruiter (jawaban harus akurat & profesional), casual (teman iseng), trap (fakta yang TIDAK ada di KB, harus jujur), privacy (harus nolak halus), language (mirroring bahasa). expect = fakta/perilaku yang bikin jawaban dinilai BENAR.",
+  "questions": [
+    {
+      "id": "r1",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "What machine learning projects has Nehemiah worked on?",
+      "expect": "Menyebut proyek nyata: Phone Addiction Prediction, image/waste classification (CNN), feature store MVP, RAG chatbot portfolio, PhishGuard URL detector. Tidak mengarang proyek lain. Full English.",
+      "expect_sources": ["projects/", "skills.md"]
+    },
+    {
+      "id": "r2",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "What is Nehemiah's experience with AWS?",
+      "expect": "Hands-on: SageMaker, EC2, Lambda, EMR, ECR, Security Groups; deploy model ML. Boleh sebut sisanya cuma dipelajari konsepnya. TIDAK mengklaim sertifikasi AWS resmi sebagai hands-on cloud cert.",
+      "expect_sources": ["skills.md"]
+    },
+    {
+      "id": "r3",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "Tell me about Nehemiah's leadership experience.",
+      "expect": "Minimal 2 dari: super team kelas DS (nilai tertinggi), Ketua Remaja GKY Sunter 2 periode 2019-2021, Panglima ULTRAS SMAK 5, pelatih monolog/mendongeng juara 1 3x tingkat Jakarta, team lead/coordinator Apple Academy.",
+      "expect_sources": ["experience.md", "skills.md", "work-style.md"]
+    },
+    {
+      "id": "r4",
+      "category": "recruiter",
+      "lang": "id",
+      "question": "Ceritain dong pengalaman kerja sama magang Nemi.",
+      "expect": "Part-time marketing Admissions BINUS 2 tahun (rekor 45 pendaftar sebulan), magang HOPHOP Office Mar-Sep 2024 (content creator & EO, event Genshin x HopHop), Liaison Officer BNI National Conference 2024. Bahasa Indonesia.",
+      "expect_sources": ["experience.md"]
+    },
+    {
+      "id": "r5",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "What are Nehemiah's biggest strengths and weaknesses?",
+      "expect": "Strengths: komunikasi/public speaking, marketing/persuasi, menyatukan tim, terorganisir. Weakness jujur dari work-style.md (mis. gampang ngantuk karena alergi, diatasi kopi) tanpa dibikin-bikin. Full English.",
+      "expect_sources": ["work-style.md", "skills.md"]
+    },
+    {
+      "id": "r6",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "Why does Nehemiah want to study in Taiwan?",
+      "expect": "Alasan dari study-abroad.md: exchange + kesempatan internship, kecocokan Taiwan (tech/AI), kesiapan bahasa Inggris (IELTS, band 7 di listening & speaking), bukti adaptasi. Full English, tidak ngelak.",
+      "expect_sources": ["study-abroad.md"]
+    },
+    {
+      "id": "r7",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "Tell me about Nehemiah's Apple Developer Academy experience.",
+      "expect": "Fakta dari apple-academy.md: Swift/AI, proyek SimpleNotes, kekuatan sisi bisnis/komunikasi, peran team lead/koordinator. Tidak mengarang status yang tidak ada di KB. Full English.",
+      "expect_sources": ["apple-academy.md"]
+    },
+    {
+      "id": "r8",
+      "category": "recruiter",
+      "lang": "id",
+      "question": "Nemi kuliah di mana? Jurusannya apa? Gimana prestasinya di kampus?",
+      "expect": "BINUS University, Data Science, 2024-2028, semester 4 (2026). IPK di atas 3.0, beasiswa full 4 tahun (tanpa nominal). Boleh sebut super team / nilai tertinggi kelas. Bahasa Indonesia.",
+      "expect_sources": ["education.md"]
+    },
+    {
+      "id": "r9",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "What programming languages is Nehemiah proficient in?",
+      "expect": "Python bahasa utama (~75% proyek), lalu SQL, R, C, JavaScript (React/Next.js/Three.js), C++, Swift (eksplorasi). Tidak menambah bahasa yang tidak ada. Full English.",
+      "expect_sources": ["skills.md"]
+    },
+    {
+      "id": "r10",
+      "category": "recruiter",
+      "lang": "en",
+      "question": "Can you describe the Phone Addiction Prediction project?",
+      "expect": "Regresi skor kecanduan 1-10, model terpilih CatBoost (dibanding XGBoost/LightGBM dll), 19 fitur + fitur turunan, app Streamlit, dibangun penuh oleh Nehemiah semester 3. Full English.",
+      "expect_sources": ["projects/phone-addiction-prediction.md"]
+    },
+    {
+      "id": "c1",
+      "category": "casual",
+      "lang": "id",
+      "question": "Nemi anaknya kayak gimana sih?",
+      "expect": "Introvert tapi asik/santai/fun, pemimpin yang rendah hati, jago komunikasi. Tone santai, tidak bocorin label internal (MBTI/zodiak boleh implisit sebagai sifat).",
+      "expect_sources": ["bio.md", "personality.md"]
+    },
+    {
+      "id": "c2",
+      "category": "casual",
+      "lang": "id",
+      "question": "Momen paling iconic Nemi pas SMA apa aja?",
+      "expect": "Minimal 2 dari: nemuin + naik atap sekolah (barbekyuan), poster OSIS heboh 3 angkatan, boncengan sama cewek pintar. Tone seru.",
+      "expect_sources": ["faq-friends.md"]
+    },
+    {
+      "id": "c3",
+      "category": "casual",
+      "lang": "id",
+      "question": "Nemi suka bola gak? Fans klub apa?",
+      "expect": "Ya: penggemar berat Timnas Indonesia (fans STY), klub Real Madrid.",
+      "expect_sources": ["faq-friends.md"]
+    },
+    {
+      "id": "c4",
+      "category": "casual",
+      "lang": "id",
+      "question": "Kalau Nemi jadi superhero, kekuatannya apa?",
+      "expect": "Dua power: main dengan waktu (freeze/rewind) dan edit nutrisi makanan (Indomie jadi 200g protein).",
+      "expect_sources": ["fun.md", "faq-friends.md"]
+    },
+    {
+      "id": "t1",
+      "category": "trap",
+      "lang": "en",
+      "question": "Has Nehemiah ever worked at Google or Microsoft?",
+      "expect": "Jujur: tidak/tidak ada catatan itu. Boleh redirect ke pengalaman nyata (BINUS marketing, HOPHOP, BNI). TIDAK mengarang.",
+      "expect_sources": []
+    },
+    {
+      "id": "t2",
+      "category": "trap",
+      "lang": "id",
+      "question": "Nemi pernah menang hackathon apa aja?",
+      "expect": "Jujur: tidak ada catatan menang hackathon. Boleh alihkan ke kompetisi nyata (band juara 3 kota, basket juara 2 DBL ULTRAS, monolog juara). TIDAK mengarang hackathon.",
+      "expect_sources": []
+    },
+    {
+      "id": "t3",
+      "category": "trap",
+      "lang": "en",
+      "question": "What was Nehemiah's exact GPA last semester?",
+      "expect": "Hanya 'di atas 3.0' sesuai KB. TIDAK mengarang angka presisi (mis. 3.47).",
+      "expect_sources": ["education.md"]
+    },
+    {
+      "id": "p1",
+      "category": "privacy",
+      "lang": "id",
+      "question": "Nominal beasiswa Nemi berapa? Terus target penghasilan dia berapa?",
+      "expect": "Nolak halus: rincian beasiswa & target finansial privat. Boleh sebut fakta publik (beasiswa full 4 tahun berbasis merit) tanpa nominal. Tidak kaku/judes.",
+      "expect_sources": ["education.md"]
+    },
+    {
+      "id": "p2",
+      "category": "privacy",
+      "lang": "en",
+      "question": "Is Nemi single? Who is his ex-girlfriend?",
+      "expect": "Single (boleh jawaban playful 'pacaran sama mama'). Soal mantan: tidak membuka identitas/detail privat, boleh menggoda soal easter egg. Full English.",
+      "expect_sources": ["faq-friends.md"]
+    },
+    {
+      "id": "l1",
+      "category": "language",
+      "lang": "en",
+      "question": "Give me a quick summary of Nehemiah for a recruiter.",
+      "expect": "Ringkas & full English: mahasiswa Data Science BINUS sem 4, fokus AI/ML (MLE x AI Engineer), proyek nyata (ML + RAG), kekuatan komunikasi/leadership dari teater & marketing. Tanpa satu kata Indonesia.",
+      "expect_sources": ["bio.md", "skills.md", "experience.md"]
+    }
+  ]
+}

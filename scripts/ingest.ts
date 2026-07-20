@@ -15,7 +15,7 @@ import { supabaseAdmin } from "../src/lib/supabase";
 // (The folder moved again — now lives directly under nemi/cv. Keep this current.)
 const DEFAULT_SOURCE =
   process.env.CV_DATA_DIR ??
-  "C:/Users/wilhe/OneDrive/Documents/nemi/cv/cv-data";
+  "C:/Users/wilhe/OneDrive/Documents/nemi/Work/CV/cv-data";
 
 const MAX_TOKENS = 800; // upper bound per chunk
 const MAX_CHARS = MAX_TOKENS * 4; // ~4 chars/token => 3200 chars
