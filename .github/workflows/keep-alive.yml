@@ -1,47 +1,75 @@
 name: Keep Supabase alive
 
-# Supabase free-tier projects pause after ~7 days of no activity. This workflow
-# hits the Supabase REST API directly on a schedule so the database always sees
-# recent traffic and never pauses. It does NOT depend on Vercel being deployed.
+# Supabase free-tier projects pause after ~7 days of no database activity, and a
+# paused database means every visitor question on the live site fails. This
+# workflow is the BACKUP keep-alive; the primary one is the Vercel cron declared
+# in `vercel.json`, which hits the same endpoint once a day.
 #
-# SETUP (once) — add two repository secrets:
-#   Repo → Settings → Secrets and variables → Actions → New repository secret
-#     SUPABASE_URL       → e.g. https://blwrbiyorubpagjahnfk.supabase.co
-#     SUPABASE_ANON_KEY  → the anon/public key (from .env.local: NEXT_PUBLIC_SUPABASE_ANON_KEY)
-#   (The anon key is browser-public by design, so this is safe.)
+# NO SETUP REQUIRED. It just GETs the public /api/keep-alive route, and that
+# route talks to Supabase using the keys already present in the Vercel
+# deployment — so there are no repository secrets to configure.
 #
-# After pushing this file you can also trigger it once manually:
-#   Repo → Actions → "Keep Supabase alive" → Run workflow.
+# Optional hardening: if you add SUPABASE_URL + SUPABASE_ANON_KEY as repository
+# secrets (Settings → Secrets and variables → Actions), the second step also
+# pings Supabase directly, which keeps the database alive even if the Vercel
+# deployment is broken. Without them that step simply skips. The anon key is
+# browser-public by design, so storing it is safe.
+#
+# Caveat worth knowing: GitHub disables scheduled workflows after 60 days with
+# no repository activity (it emails first). The Vercel cron has no such limit,
+# which is why this one is only the backup.
+#
+# Manual run: Repo → Actions → "Keep Supabase alive" → Run workflow.
 
 on:
   schedule:
     - cron: "0 6 */2 * *" # every 2 days at 06:00 UTC — safe margin under the 7-day window
   workflow_dispatch: {} # manual run button in the Actions tab
 
+# Never let two pings overlap.
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Ping Supabase REST (registers DB activity)
+      - name: Ping the site's keep-alive route (registers DB activity)
+        env:
+          SITE_URL: https://web-portofolio-rag.vercel.app
+        run: |
+          TARGET="$SITE_URL/api/keep-alive"
+          echo "Pinging $TARGET"
+          code=$(curl -s -o /tmp/body.json -w "%{http_code}" --max-time 60 --retry 2 --retry-delay 10 "$TARGET")
+          echo "HTTP $code"
+          head -c 300 /tmp/body.json || true
+          echo
+          if [ "$code" != "200" ]; then
+            echo "::error::Keep-alive ping failed (HTTP $code). The database may be paused, or the deployment is down."
+            exit 1
+          fi
+          echo "✅ Supabase pinged via the app — pause timer reset."
+
+      - name: Also ping Supabase directly (skipped unless secrets are set)
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
-            echo "::error::Missing SUPABASE_URL or SUPABASE_ANON_KEY repo secret — see setup notes in this file."
-            exit 1
+            echo "No SUPABASE_URL / SUPABASE_ANON_KEY secrets set — skipping the direct ping (optional)."
+            exit 0
           fi
           TARGET="$SUPABASE_URL/rest/v1/chunks?select=id&limit=1"
-          echo "Pinging $TARGET"
-          code=$(curl -s -o /tmp/body.json -w "%{http_code}" --max-time 30 \
+          echo "Pinging Supabase REST directly"
+          code=$(curl -s -o /tmp/direct.json -w "%{http_code}" --max-time 30 \
             "$TARGET" \
             -H "apikey: $SUPABASE_ANON_KEY" \
             -H "Authorization: Bearer $SUPABASE_ANON_KEY")
           echo "HTTP $code"
-          head -c 200 /tmp/body.json || true
-          echo
           if [ "$code" != "200" ]; then
-            echo "::error::Supabase ping failed (HTTP $code). DB may be paused or the key/URL is wrong."
+            echo "::error::Direct Supabase ping failed (HTTP $code). Check the key/URL, or the project may be paused."
             exit 1
           fi
-          echo "✅ Supabase pinged successfully — pause timer reset."
+          echo "✅ Direct Supabase ping OK."
