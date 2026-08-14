@@ -101,7 +101,7 @@ function isTransientError(err: unknown): boolean {
  *
  * Model fallback: free-tier quota is per-model, so when one model is exhausted
  * (or momentarily overloaded) we retry the same turn on the next model in
- * CHAT_MODELS. Fallback only applies BEFORE the first token is emitted — once
+ * CHAT_MODELS. Fallback only applies BEFORE the first token is emitted. Once
  * the visitor is reading a partial answer, restarting on another model would
  * duplicate text, so a mid-stream failure is surfaced instead.
  */
@@ -112,7 +112,7 @@ export async function* chat({
 }: ChatParams): AsyncIterable<string> {
   // gemini-2.5-flash "thinks" before answering by default, which adds several
   // seconds of first-token latency. This bot only synthesizes already-retrieved
-  // context, so thinking is wasted effort — disable it for a snappy reply.
+  // context, so thinking is wasted effort, disable it for a snappy reply.
   // The legacy SDK has no typed field for this but forwards `generationConfig`
   // verbatim to the REST API, which honors thinkingBudget: 0 on 2.5 models.
   const generationConfig = {

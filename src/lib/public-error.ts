@@ -5,7 +5,7 @@ import { isQuotaError } from "./gemini";
  *
  * Why this exists: the chat route used to forward `err.message` straight to the
  * browser. When Gemini's free-tier daily quota ran out, visitors got Google's
- * raw 429 JSON — internal quota metric names and a link to the billing console.
+ * raw 429 JSON: internal quota metric names and a link to the billing console.
  * That is both unreadable and an information leak. Everything specific now goes
  * to the server log; the visitor gets plain Indonesian.
  */

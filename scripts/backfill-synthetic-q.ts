@@ -12,7 +12,7 @@ import { supabaseAdmin } from "../src/lib/supabase";
  * ----------------------------------------------
  * `ingest.ts` deletes every row for a file before reinserting it. Free-tier
  * generateContent quota is ~20 requests/day per model, so a full ingest reliably
- * dies partway through — and whatever it had already deleted stays deleted. The
+ * dies partway through, and whatever it had already deleted stays deleted. The
  * 10 Aug 2026 run ended with 13 files holding content but zero `synthetic_q`,
  * three of which HAD questions before the run. Re-running ingest to fix that can
  * make it worse, and because ingest walks files alphabetically it starves the
@@ -107,7 +107,7 @@ async function geminiCall<T>(
           maxBackoffMs,
         );
         console.warn(
-          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}) — retry in ${Math.round(backoff / 1000)}s`,
+          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}), retry in ${Math.round(backoff / 1000)}s`,
         );
         await sleep(backoff);
         continue;
@@ -186,14 +186,14 @@ async function main() {
   }
 
   if (dryRun || missing.length === 0) {
-    console.log(`\n${dryRun ? "Dry run — nothing written." : "Nothing to backfill."}`);
+    console.log(`\n${dryRun ? "Dry run, nothing written." : "Nothing to backfill."}`);
     return;
   }
 
   // 4. Process the most-starved files first. A file with zero questions is
   //    invisible to conversational queries; a file missing one of four is not.
   //    If quota runs out mid-run, this ordering means it ran out on the chunks
-  //    that mattered least — the opposite of what alphabetical ingest does.
+  //    that mattered least, the opposite of what alphabetical ingest does.
   const rank = (f: string) => {
     const e = perFile.get(f)!;
     return e.missing / e.total;
@@ -219,7 +219,7 @@ async function main() {
     const questions = await trySyntheticQuestions(chunk.content);
     if (questions === null) {
       stats.stoppedOnQuota = true;
-      console.log("\n  ⚠ All models out of quota — stopping cleanly.");
+      console.log("\n  ⚠ All models out of quota, stopping cleanly.");
       break;
     }
     for (const q of questions.slice(0, SYNTHETIC_Q_COUNT)) {
