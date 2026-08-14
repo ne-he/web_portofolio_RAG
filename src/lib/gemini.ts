@@ -22,6 +22,17 @@ export const EMBEDDING_DIM = 768;
 export const CHAT_MODEL = "gemini-2.5-flash";
 export const SYNTHETIC_Q_MODEL = "gemini-2.5-flash-lite";
 
+// Free-tier generateContent quota is small and PER-MODEL (~20 req/day on
+// gemini-2.5-flash). A single model therefore means the public chatbot dies for
+// the rest of the day once that budget is gone. Ingest already rotates models
+// for the same reason; the live chat path now does too. Order = best answer
+// quality first, cheapest last.
+export const CHAT_MODELS = [
+  CHAT_MODEL,
+  "gemini-flash-latest",
+  "gemini-2.5-flash-lite",
+] as const;
+
 /**
  * Embed a single string into a unit-normalized 768-dim vector.
  * Normalization is recommended for reduced Matryoshka dimensions and is safe for
@@ -72,9 +83,27 @@ export interface ChatParams {
   prompt: string;
 }
 
+/** True when the provider refused for quota/rate reasons rather than a real bug. */
+export function isQuotaError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return /\b429\b|quota|rate.?limit|RESOURCE_EXHAUSTED|exhaust/i.test(msg);
+}
+
+/** True when the provider is temporarily unavailable (worth trying another model). */
+function isTransientError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return /\b50\d\b|overload|unavailable|fetch failed|ECONNRESET|ETIMEDOUT/i.test(msg);
+}
+
 /**
- * Stream a chat completion from gemini-2.0-flash. Yields text tokens as they
- * arrive so the API route can forward them to the client.
+ * Stream a chat completion. Yields text tokens as they arrive so the API route
+ * can forward them to the client.
+ *
+ * Model fallback: free-tier quota is per-model, so when one model is exhausted
+ * (or momentarily overloaded) we retry the same turn on the next model in
+ * CHAT_MODELS. Fallback only applies BEFORE the first token is emitted — once
+ * the visitor is reading a partial answer, restarting on another model would
+ * duplicate text, so a mid-stream failure is surfaced instead.
  */
 export async function* chat({
   systemInstruction,
@@ -89,13 +118,37 @@ export async function* chat({
   const generationConfig = {
     thinkingConfig: { thinkingBudget: 0 },
   } as unknown as GenerationConfig;
-  const model = genAI.getGenerativeModel({ model: CHAT_MODEL, systemInstruction, generationConfig });
-  const session = model.startChat({ history: history as Content[] });
-  const result = await session.sendMessageStream(prompt);
-  for await (const chunk of result.stream) {
-    const text = chunk.text();
-    if (text) yield text;
+
+  let lastErr: unknown;
+  for (let i = 0; i < CHAT_MODELS.length; i++) {
+    const modelName = CHAT_MODELS[i];
+    let emitted = false;
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        systemInstruction,
+        generationConfig,
+      });
+      const session = model.startChat({ history: history as Content[] });
+      const result = await session.sendMessageStream(prompt);
+      for await (const chunk of result.stream) {
+        const text = chunk.text();
+        if (text) {
+          emitted = true;
+          yield text;
+        }
+      }
+      return;
+    } catch (err) {
+      lastErr = err;
+      const worthRotating = isQuotaError(err) || isTransientError(err);
+      if (emitted || !worthRotating || i === CHAT_MODELS.length - 1) throw err;
+      console.warn(
+        `[gemini] ${modelName} unavailable (${isQuotaError(err) ? "quota" : "transient"}) → falling back to ${CHAT_MODELS[i + 1]}`,
+      );
+    }
   }
+  throw lastErr ?? new Error("[gemini] chat: no model produced a response");
 }
 
 /**

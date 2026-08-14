@@ -4,6 +4,7 @@ import { buildPrompt, type InboundMessage } from "@/lib/build-prompt";
 import { getClientIp, hit } from "@/lib/rate-limit";
 import { checkDailyLimit } from "@/lib/daily-limit";
 import { corsHeaders, preflight } from "@/lib/cors";
+import { toPublicError } from "@/lib/public-error";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -158,9 +159,10 @@ export async function POST(req: Request) {
           }
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ error: message })}\n\n`),
+            encoder.encode(
+              `data: ${JSON.stringify({ error: toPublicError(err, "chat:stream") })}\n\n`,
+            ),
           );
         } finally {
           controller.close();
@@ -178,7 +180,17 @@ export async function POST(req: Request) {
       },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    return Response.json({ error: message }, { status: 500, headers: cors });
+    // Quota exhaustion is not a server fault — answer 429 so clients and any
+    // uptime monitor read it correctly, and never echo the provider's payload.
+    const quota = /\b429\b|quota|rate.?limit|RESOURCE_EXHAUSTED/i.test(
+      err instanceof Error ? err.message : String(err),
+    );
+    return Response.json(
+      { error: toPublicError(err, "chat:request") },
+      {
+        status: quota ? 429 : 500,
+        headers: quota ? { ...cors, "Retry-After": "3600" } : cors,
+      },
+    );
   }
 }
