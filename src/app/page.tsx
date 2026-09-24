@@ -51,7 +51,7 @@ export default function Home() {
         });
         if (!res.ok || !res.body) {
           // Server rejected the request (rate limit, payload caps, etc.). The
-          // body is JSON `{ error }` — surface it as a normal assistant bubble
+          // body is JSON `{ error }`: surface it as a normal assistant bubble
           // instead of throwing (which would prepend "Gagal konek ke server").
           let serverMsg = "";
           try {
@@ -66,7 +66,7 @@ export default function Home() {
               role: "assistant",
               content:
                 serverMsg ||
-                `⚠️ Server lagi error nih (HTTP ${res.status}) — coba lagi sebentar ya.`,
+                `⚠️ Server lagi error nih (HTTP ${res.status}). Coba lagi sebentar ya.`,
             },
           ]);
           return;
@@ -125,7 +125,7 @@ export default function Home() {
     [messages, isLoading],
   );
 
-  // Back to the hero landing — clears the conversation.
+  // Back to the hero landing: clears the conversation.
   const resetToLanding = useCallback(() => {
     if (isLoading) return;
     setMessages([]);
@@ -158,7 +158,7 @@ export default function Home() {
       <VideoBackground key={videoSrc} src={videoSrc} />
       <div className="scrim" style={{ background: inChat ? baseScrim : heroScrim }} />
 
-      {/* "different world" wash — fades in while the Nemi logo is hovered */}
+      {/* "different world" wash: fades in while the Nemi logo is hovered */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-700 ease-out"
         aria-hidden
@@ -178,7 +178,7 @@ export default function Home() {
         }}
       />
 
-      {/* Unified nav — always visible on landing and in chat */}
+      {/* Unified nav: always visible on landing and in chat */}
       <TopNav
         onLogoClick={resetToLanding}
         onLogoHover={setLogoHover}

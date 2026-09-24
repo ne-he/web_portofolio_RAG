@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 // Powers the "Ask Nemi everything." hero headline. Space Grotesk has no italic
-// face, so the italic "everything." is browser-synthesized — exactly as in Hero.html.
+// face, so the italic "everything." is browser-synthesized: exactly as in Hero.html.
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Nemi — Ask Nemi Everything",
+  title: "Nemi · Ask Nemi Everything",
   description: "Ngobrol langsung sama AI-nya Nehemiah: pengalaman, project, & kepribadian.",
 };
 

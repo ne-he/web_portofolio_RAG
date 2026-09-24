@@ -9,19 +9,19 @@ const EXPERIENCE = [
     role: "Part-time Marketer",
     org: "BINUS University Admission, Kemanggisan",
     time: "2 tahun",
-    desc: "Akuisisi calon mahasiswa: campus tour, workshop sekolah, presentasi ke guru & orang tua. Rekor 45 pendaftar dalam sebulan — jauh di atas target standar 3.",
+    desc: "Akuisisi calon mahasiswa: campus tour, workshop sekolah, presentasi ke guru & orang tua. Rekor 45 pendaftar dalam sebulan, jauh di atas target standar 3.",
   },
   {
     role: "Idea Content Creator & Event Organizer",
     org: "HOPHOP Office",
     time: "Mar–Sep 2024",
-    desc: "Event Genshin Impact × HopHop Indonesia 2024 — ide konten kreatif + eksekusi acara.",
+    desc: "Event Genshin Impact × HopHop Indonesia 2024: ide konten kreatif + eksekusi acara.",
   },
   {
     role: "Liaison Officer",
     org: "BNI National Conference 2024",
     time: "2024",
-    desc: "Mendampingi direktur dari berbagai negara — komunikasi lintas budaya kelas eksekutif.",
+    desc: "Mendampingi direktur dari berbagai negara: komunikasi lintas budaya kelas eksekutif.",
   },
 ];
 
@@ -33,7 +33,7 @@ const SKILLS = [
   },
   {
     group: "MLOps & Cloud",
-    items: ["AWS — SageMaker · EC2 · Lambda · EMR · ECR", "MLflow", "FastAPI", "Streamlit", "Docker"],
+    items: ["AWS: SageMaker · EC2 · Lambda · EMR · ECR", "MLflow", "FastAPI", "Streamlit", "Docker"],
   },
   { group: "GenAI", items: ["RAG", "LLM API", "LangChain", "Prompt Engineering"] },
   { group: "Data & Web", items: ["Supabase · PostgreSQL", "Tableau · Power BI", "Next.js", "Three.js"] },
@@ -72,12 +72,12 @@ export default function ProfilePage() {
       <section className={card}>
         <h2 className="text-2xl font-semibold tracking-tight">Nehemiah Wilhelmus Junaidi</h2>
         <p className={`mt-1 ${muted}`}>
-          “Nemi” · Data Science @ BINUS (Sem 4) · AI/ML — MLE ✕ AI Engineer
+          “Nemi” · Data Science @ BINUS (Sem 5) · AI/ML: MLE ✕ AI Engineer
         </p>
         <p className={`mt-1 text-sm ${faint}`}>Jakarta · sedang internship · ♊ Gemini · INTP</p>
         <p className={`mt-4 text-[15px] leading-relaxed ${muted}`}>
           Mahasiswa Data Science BINUS yang fokus di AI/ML. Di balik kerja teknisnya, Nemi punya
-          latar panggung kuat — teater, band, MC, 2 tahun marketing — yang bikin dia jago
+          latar panggung kuat (teater, band, MC, 2 tahun marketing) yang bikin dia jago
           menerjemahkan hal teknis jadi nilai yang dimengerti orang.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
@@ -131,7 +131,7 @@ export default function ProfilePage() {
 
       <section className={card}>
         <p className={label}>Pendidikan</p>
-        <h3 className="font-medium">BINUS University — S1 Data Science</h3>
+        <h3 className="font-medium">BINUS University · S1 Data Science</h3>
         <p className={`text-sm ${faint}`}>2024 – 2028 · Beasiswa Full 4 Tahun · IPK di atas 3.0</p>
         <p className={`mt-2 text-sm leading-relaxed ${muted}`}>
           Besar di ekosistem PENABUR (TK–SMA). Peminatan Machine Learning Engineer ✕ AI Engineer.
@@ -144,7 +144,7 @@ export default function ProfilePage() {
         <ul className="space-y-2">
           {ACHIEVEMENTS.map((a) => (
             <li key={a} className={`flex gap-2 text-sm leading-relaxed ${muted}`}>
-              <span className={faint}>—</span>
+              <span className={faint}>•</span>
               {a}
             </li>
           ))}
@@ -156,7 +156,7 @@ export default function ProfilePage() {
         className={`${card} block text-center transition-transform hover:-translate-y-0.5`}
       >
         <p className="font-medium">Mau gali lebih dalam?</p>
-        <p className={`mt-1 text-sm ${muted}`}>Ngobrol langsung sama AI Nemi — tanya apa aja →</p>
+        <p className={`mt-1 text-sm ${muted}`}>Ngobrol langsung sama AI Nemi, tanya apa aja →</p>
       </Link>
     </PageShell>
   );

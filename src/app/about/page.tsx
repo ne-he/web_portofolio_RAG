@@ -7,7 +7,7 @@ import { useTheme } from "@/components/layout/ThemeProvider";
 const MISSION = [
   {
     title: "Kuasai AI/ML sampai level penyedia, bukan sekadar pengguna",
-    body: "Mendalami machine learning & AI engineering — dari modeling sampai deployment — biar jadi orang yang membangun solusi, bukan cuma memakainya.",
+    body: "Mendalami machine learning & AI engineering, dari modeling sampai deployment, biar jadi orang yang membangun solusi, bukan cuma memakainya.",
   },
   {
     title: "Bangun karya nyata, bukan numpuk gelar",
@@ -19,13 +19,13 @@ const MISSION = [
   },
   {
     title: "Berkontribusi untuk keluarga & Indonesia",
-    body: "Menjadikan kemampuan teknis ini berguna — buat membanggakan orang tua dan ikut memajukan negeri.",
+    body: "Menjadikan kemampuan teknis ini berguna, buat membanggakan orang tua dan ikut memajukan negeri.",
   },
 ];
 
 const PRINCIPLES = [
   "“Proses tidak akan mengkhianati hasil.”",
-  "AI itu mesin jenius yang harus dijadikan teman — sebelum jadi musuh.",
+  "AI itu mesin jenius yang harus dijadikan teman, sebelum jadi musuh.",
   "Idealis, dengan landasan yang realistis.",
 ];
 
@@ -47,7 +47,7 @@ export default function AboutPage() {
           className={`text-xl leading-relaxed md:text-2xl ${hi}`}
           style={{ fontWeight: 400, letterSpacing: "-0.01em" }}
         >
-          Menjadi AI/ML engineer yang bukan cuma cakap secara teknis — tapi juga mampu memimpin,
+          Menjadi AI/ML engineer yang bukan cuma cakap secara teknis, tapi juga mampu memimpin,
           mempresentasikan, dan membawa dampak nyata: buat keluarga, dan buat Indonesia.
         </p>
         <p className={`mt-4 text-sm ${faint}`}>
@@ -77,7 +77,7 @@ export default function AboutPage() {
         <ul className={`space-y-2.5 text-[15px] leading-relaxed ${muted}`}>
           {PRINCIPLES.map((p) => (
             <li key={p} className="flex gap-2">
-              <span className={faint}>—</span>
+              <span className={faint}>•</span>
               {p}
             </li>
           ))}

@@ -7,8 +7,8 @@ import { SuggestedQuestions } from "@/components/chat/SuggestedQuestions";
 
 // Typed intro shown on the landing before the visitor sends anything.
 // Brand-consistent with "Nemi" everywhere else on the site. Want the
-// Jarvis-flavored line instead? Swap to: "Hi, I'm Jarviah — Jarvis × Nehemiah. How can I help you?"
-const GREETING = "Hi, I'm Nemi — Nehemiah's AI. How can I help you?";
+// Jarvis-flavored line instead? Swap to: "Hi, I'm Jarviah, Jarvis × Nehemiah. How can I help you?"
+const GREETING = "Hi, I'm Nemi, Nehemiah's AI. How can I help you?";
 
 /** Types `text` out one character at a time with a blinking cursor. */
 function Typewriter({
