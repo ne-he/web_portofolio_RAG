@@ -30,14 +30,25 @@ const estTokens = (text: string) => Math.ceil(text.length / 4);
 // ----------------------------------------------------------------------------
 // CLI args
 // ----------------------------------------------------------------------------
+// `--only a.md,projects/b.md` re-ingests just those files, matched against the
+// path relative to the source root, so file_source stays identical to a full
+// run. Use this instead of pointing --source at a subfolder.
 function parseArgs(argv: string[]) {
   let source = DEFAULT_SOURCE;
   let test = false;
+  const only: string[] = [];
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--test") test = true;
     else if (argv[i] === "--source") source = argv[++i] ?? source;
+    else if (argv[i] === "--only")
+      only.push(
+        ...(argv[++i] ?? "")
+          .split(",")
+          .map((s) => s.trim().split("\\").join("/"))
+          .filter(Boolean),
+      );
   }
-  return { source, test };
+  return { source, test, only };
 }
 
 // ----------------------------------------------------------------------------
@@ -274,7 +285,7 @@ async function insertInBatches(rows: ChunkRow[]): Promise<void> {
 // Main
 // ----------------------------------------------------------------------------
 async function main() {
-  const { source, test } = parseArgs(process.argv.slice(2));
+  const { source, test, only } = parseArgs(process.argv.slice(2));
 
   console.log("=".repeat(64));
   console.log(`RAG ingest  |  mode: ${test ? "TEST (single file)" : "FULL"}`);
@@ -283,6 +294,13 @@ async function main() {
   console.log("=".repeat(64));
 
   let files = walkMarkdown(source);
+  if (only.length) {
+    const rel = (f: string) => relative(source, f).split("\\").join("/");
+    const missing = only.filter((o) => !files.some((f) => rel(f) === o));
+    if (missing.length) throw new Error(`--only: not found under source: ${missing.join(", ")}`);
+    files = files.filter((f) => only.includes(rel(f)));
+    console.log(`--only: ${files.length} file(s): ${only.join(", ")}`);
+  }
   if (test) {
     const bio = files.find((f) => basename(f).toLowerCase() === "bio.md");
     files = bio ? [bio] : files.slice(0, 1);
