@@ -10,7 +10,7 @@ import { supabaseAdmin } from "./supabase";
 // it by running that SQL once + setting the DAILY_LIMIT_* env vars.
 
 // Default 25/day: a serious recruiter conversation can easily run 10-15
-// questions — blocking them mid-interview at 8 would be a terrible look.
+// questions: blocking them mid-interview at 8 would be a terrible look.
 const IP_LIMIT = Number(process.env.DAILY_LIMIT_PER_IP ?? 25);
 const GLOBAL_LIMIT = Number(process.env.DAILY_LIMIT_GLOBAL ?? 0); // 0 = no global cap
 const SALT = process.env.DAILY_LIMIT_SALT ?? "ai-nehemiah";
@@ -51,6 +51,6 @@ export async function checkDailyLimit(ip: string): Promise<DailyLimitResult> {
       reason: row.allowed ? undefined : row.ip_count > IP_LIMIT ? "ip" : "global",
     };
   } catch {
-    return allow; // fail open — never let the limiter take down chat
+    return allow; // fail open: never let the limiter take down chat
   }
 }

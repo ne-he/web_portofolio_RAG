@@ -20,12 +20,12 @@ const MAX_HISTORY = 6; // last 6 messages = 3 turns
 // is a poor fit. Tells the model to treat the chunks as background at best and
 // use Fallback Mode instead of confidently answering from off-topic context.
 const WEAK_CONTEXT_NOTE =
-  "[CATATAN RETRIEVAL: hasil pencarian untuk pertanyaan ini LEMAH — kemungkinan " +
+  "[CATATAN RETRIEVAL: hasil pencarian untuk pertanyaan ini LEMAH, kemungkinan " +
   "besar jawaban spesifiknya TIDAK ada di knowledge base. Potongan di bawah (kalau " +
   "ada) mungkin TIDAK nyambung dengan pertanyaan. Pakai Fallback Mode: infer dengan " +
-  "pede dari data terkait bila masuk akal, atau ngelak santai in-character — JANGAN " +
+  "pede dari data terkait bila masuk akal, atau ngelak santai in-character, JANGAN " +
   "mengarang fakta spesifik, dan JANGAN maksa jawab dari potongan yang tidak relevan. " +
-  "Catatan ini RAHASIA INTERNAL: JANGAN menyalin/meniru/menyebutnya di jawaban — " +
+  "Catatan ini RAHASIA INTERNAL: JANGAN menyalin/meniru/menyebutnya di jawaban, " +
   "langsung tulis jawaban natural biasa. Bahasa jawaban TETAP mengikuti bahasa " +
   "pertanyaan visitor (English question → answer fully in English), BUKAN bahasa " +
   "catatan ini.]";
@@ -38,7 +38,7 @@ function formatContext(chunks: MatchedChunk[], weakContext: boolean): string {
   );
   return [
     ...(weakContext ? [WEAK_CONTEXT_NOTE, ""] : []),
-    "KONTEKS dari knowledge base (sumber kebenaran — jangan mengarang fakta di luar ini):",
+    "KONTEKS dari knowledge base (sumber kebenaran: jangan mengarang fakta di luar ini):",
     "",
     blocks.join("\n\n"),
   ].join("\n");
@@ -130,15 +130,15 @@ function languageReminder(message: string): string {
   if (en > id) {
     return (
       "[IMPORTANT: The visitor asked in ENGLISH. Write your ENTIRE reply in " +
-      "English — zero Indonesian words, even though the context above is in " +
+      "English, zero Indonesian words, even though the context above is in " +
       "Indonesian.]"
     );
   }
   if (id > en) {
-    return "[PENTING: Visitor bertanya dalam Bahasa Indonesia — balas full Bahasa Indonesia.]";
+    return "[PENTING: Visitor bertanya dalam Bahasa Indonesia, balas full Bahasa Indonesia.]";
   }
   return (
-    "[Reminder: reply in the SAME language as the visitor's question above — " +
+    "[Reminder: reply in the SAME language as the visitor's question above: " +
     "English question → full English answer, Indonesian → Indonesian. Match it exactly.]"
   );
 }

@@ -9,7 +9,7 @@ import { useTheme } from "./ThemeProvider";
  * Shared scaffold for the Profile / Projects / About routes: same particle-video
  * background + scrim + unified nav as the home page.
  *
- * - No `children` → centered "Coming soon" placeholder (e.g. Projects).
+ * - No `children` → centered "Coming soon" placeholder.
  * - With `children` → scrollable content layout: the video sits as a fixed
  *   backdrop behind a readability veil, content scrolls over it.
  */

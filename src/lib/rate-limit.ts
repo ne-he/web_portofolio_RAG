@@ -1,6 +1,6 @@
 // In-memory, per-instance rate limiter for the public chat endpoint.
 //
-// WHY in-memory: zero dependency, zero setup — ships today. It lives inside the
+// WHY in-memory: zero dependency, zero setup: ships today. It lives inside the
 // serverless function instance, so it reliably catches a single client hammering
 // the endpoint and runaway client-side loops (the realistic cost risks for a
 // portfolio site). It does NOT share state across instances/regions and resets
@@ -8,7 +8,7 @@
 //
 // UPGRADE PATH: when traffic justifies it, replace the body of `hit()` with a
 // shared store (e.g. Upstash Redis via `@upstash/ratelimit`). Keep this module's
-// signature and the route stays unchanged — just add the UPSTASH_* env vars.
+// signature and the route stays unchanged: just add the UPSTASH_* env vars.
 
 const WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_SEC ?? 60) * 1000;
 const MAX_HITS = Number(process.env.RATE_LIMIT_MAX ?? 15);
@@ -48,7 +48,7 @@ export function hit(key: string): RateLimitResult {
   const windowStart = now - WINDOW_MS;
 
   // Opportunistic memory bound: if the table grows huge (bursty traffic / many
-  // distinct IPs), drop everything. Worst case some clients get a fresh window —
+  // distinct IPs), drop everything. Worst case some clients get a fresh window,
   // cheap and safe for a single-instance in-memory limiter.
   if (log.size > MAX_TRACKED_KEYS) log.clear();
 

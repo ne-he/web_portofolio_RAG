@@ -1,5 +1,6 @@
 import { embed, EMBEDDING_MODEL, CHAT_MODEL, isQuotaError } from "@/lib/gemini";
 import { supabasePublic } from "@/lib/supabase";
+import { getClientIp, hit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +24,17 @@ function classify(err: unknown): string {
  * Health check for deployment: verifies Gemini (embeds a dummy string) and
  * Supabase (counts rows in `chunks`). GET /api/chat/test
  */
-export async function GET() {
+export async function GET(req: Request) {
+  // Every call embeds a string on the free Gemini quota, so it shares the chat
+  // burst limit instead of being free to hammer.
+  const rl = hit(getClientIp(req));
+  if (!rl.ok) {
+    return Response.json(
+      { ok: false, error: "rate limited" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } },
+    );
+  }
+
   const result: {
     ok: boolean;
     gemini: string;

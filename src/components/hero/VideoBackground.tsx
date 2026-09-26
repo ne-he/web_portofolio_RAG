@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
  * Why two stacked <video>s: a single `<video loop>` (or a manual seek-to-0) shows
  * a visible jump / "rewind" at the loop seam unless the file is frame-perfect.
  * Instead we run two copies of the same clip and, ~0.45s before the active one
- * ends, start the other from 0 and cross-fade between them — which hides the
+ * ends, start the other from 0 and cross-fade between them, which hides the
  * seam entirely, regardless of how the video was encoded.
  */
 export function VideoBackground({ src }: { src: string }) {
@@ -33,10 +33,10 @@ export function VideoBackground({ src }: { src: string }) {
       a.currentTime = 0;
       b.currentTime = 0;
     } catch {
-      /* not seekable yet — fine */
+      /* not seekable yet, fine */
     }
     a.play().catch(() => {
-      /* autoplay can be blocked until interaction — safe to ignore */
+      /* autoplay can be blocked until interaction, safe to ignore */
     });
 
     const tick = () => {
@@ -109,7 +109,7 @@ export function VideoBackground({ src }: { src: string }) {
           muted
           playsInline
           preload="auto"
-          // loadeddata fires when the FIRST frame is ready — earlier than canplay
+          // loadeddata fires when the FIRST frame is ready, earlier than canplay
           // (which waits until it can play through), so the face appears sooner.
           onLoadedData={() => setReady(true)}
           onCanPlay={() => setReady(true)}

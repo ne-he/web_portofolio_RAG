@@ -5,6 +5,7 @@ import { getClientIp, hit } from "@/lib/rate-limit";
 import { checkDailyLimit } from "@/lib/daily-limit";
 import { corsHeaders, preflight } from "@/lib/cors";
 import { toPublicError } from "@/lib/public-error";
+import { createLeakGuard } from "@/lib/leak-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -105,9 +106,11 @@ export async function POST(req: Request) {
 
     // 2b. Confidence gate, drop noise chunks; flag the whole context as weak
     //     when even the best match is a poor fit (question likely not covered).
-    const contextChunks = retrieved.filter((c) => c.similarity >= MIN_SIM);
-    const topSim = contextChunks[0]?.similarity ?? 0;
-    const weakContext = topSim < WEAK_TOP_SIM;
+    //     Pinned chunks (the question names that project) always stay, and a
+    //     question that names a known project is never treated as uncovered.
+    const contextChunks = retrieved.filter((c) => c.pinned || c.similarity >= MIN_SIM);
+    const topSim = Math.max(0, ...contextChunks.map((c) => c.similarity));
+    const weakContext = !contextChunks.some((c) => c.pinned) && topSim < WEAK_TOP_SIM;
 
     // 3. Build the prompt. History = everything before the final user turn.
     const priorHistory = messages.slice(0, messages.lastIndexOf(lastUser));
@@ -119,44 +122,21 @@ export async function POST(req: Request) {
     );
 
     // 4. Stream the answer back as Server-Sent Events.
-    //    Leak guard: the model must never surface internal bracketed system
-    //    notes (e.g. the weak-retrieval marker). If the answer OPENS with a
-    //    "[...]" block, buffer it, drop it, and stream from the real content.
+    //    Leak guard (lib/leak-guard.ts): an internal note the model echoes at
+    //    the start, bracketed or not, is held back and dropped, and em dashes
+    //    never reach the visitor.
     const encoder = new TextEncoder();
     const stream = new ReadableStream<Uint8Array>({
       async start(controller) {
-        let gateDone = false; // leading-bracket check resolved?
-        let held = ""; // tokens held back while the check is pending
         const send = (text: string) => {
-          if (text) {
-            controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ text })}\n\n`),
-            );
-          }
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
         };
-        const feed = (token: string) => {
-          if (gateDone) return send(token);
-          held += token;
-          const lead = held.trimStart();
-          if (!lead) return; // still whitespace only, keep holding
-          if (!lead.startsWith("[")) {
-            gateDone = true; // normal answer, release everything held
-            return send(held);
-          }
-          const close = held.indexOf("]");
-          if (close === -1) return; // bracket block still open, keep holding
-          gateDone = true; // drop the bracketed note (and following blank lines)
-          send(held.slice(close + 1).replace(/^\s+/, ""));
-        };
+        const guard = createLeakGuard(send);
         try {
           for await (const token of chat({ systemInstruction, history, prompt })) {
-            feed(token);
+            guard.feed(token);
           }
-          // Stream ended while still holding (e.g. whole answer was one note or
-          // an unclosed bracket), release the raw text minus a leading note.
-          if (!gateDone) {
-            send(held.replace(/^\s*\[[^\]]*\]\s*/, ""));
-          }
+          guard.end(); // stream ended while still holding: drop the note, release the rest
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         } catch (err) {
           controller.enqueue(

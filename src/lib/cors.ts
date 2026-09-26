@@ -1,7 +1,7 @@
 // CORS support for the public chat API, so the SAME backend can power chatbots
 // embedded on Nehemiah's OTHER sites (different domains).
 //
-// Configure with env `ALLOWED_ORIGINS` — comma-separated origins, e.g.:
+// Configure with env `ALLOWED_ORIGINS`: comma-separated origins, e.g.:
 //   ALLOWED_ORIGINS=https://armory-hall.vercel.app,https://iceberg-cv.vercel.app
 //
 // When the env var is unset the API stays same-origin only (no CORS headers),
@@ -23,7 +23,7 @@ export function corsHeaders(origin: string | null): Record<string, string> {
   if (!origin || !allowed.has(origin.replace(/\/$/, ""))) return {};
   return {
     "Access-Control-Allow-Origin": origin,
-    // Origin-dependent response — make caches key on it.
+    // Origin-dependent response: make caches key on it.
     Vary: "Origin",
   };
 }
@@ -32,7 +32,7 @@ export function corsHeaders(origin: string | null): Record<string, string> {
 export function preflight(req: Request): Response {
   const cors = corsHeaders(req.headers.get("origin"));
   if (Object.keys(cors).length === 0) {
-    // Not an allowed cross-origin caller — plain 204, no CORS grants.
+    // Not an allowed cross-origin caller: plain 204, no CORS grants.
     return new Response(null, { status: 204 });
   }
   return new Response(null, {

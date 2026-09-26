@@ -24,7 +24,7 @@ export const supabasePublic: SupabaseClient = createClient(
 );
 
 /**
- * Admin client (service_role key). BYPASSES Row Level Security — SERVER ONLY.
+ * Admin client (service_role key). BYPASSES Row Level Security: SERVER ONLY.
  * Never import this into a Client Component. `SUPABASE_SERVICE_ROLE_KEY` has no
  * `NEXT_PUBLIC_` prefix, so Next.js keeps it out of the browser bundle.
  * The ingestion script uses this to bulk-insert chunks.

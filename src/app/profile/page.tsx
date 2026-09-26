@@ -52,6 +52,7 @@ const CONTACTS = [
   { label: "Email", href: "mailto:nehewj@gmail.com" },
   { label: "WhatsApp", href: "https://wa.me/6281911497766" },
   { label: "GitHub", href: "https://github.com/ne-he" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/nehemiahwj" },
   { label: "Instagram", href: "https://instagram.com/nehemiah_wj" },
 ];
 

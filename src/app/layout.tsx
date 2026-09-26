@@ -20,9 +20,27 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://web-portofolio-rag.vercel.app";
+const DESCRIPTION = "Ngobrol langsung sama AI-nya Nehemiah: pengalaman, project, & kepribadian.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Nemi · Ask Nemi Everything",
-  description: "Ngobrol langsung sama AI-nya Nehemiah: pengalaman, project, & kepribadian.",
+  description: DESCRIPTION,
+  // Link previews on WhatsApp, LinkedIn and X used to show a bare URL.
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Ask Nemi",
+    title: "Ask Nemi · CV Nehemiah yang bisa diajak ngobrol",
+    description: DESCRIPTION,
+    locale: "id_ID",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ask Nemi · CV Nehemiah yang bisa diajak ngobrol",
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
@@ -32,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
