@@ -334,7 +334,8 @@ async function main() {
       continue;
     }
 
-    const rawChunks = chunkMarkdown(parsed.content);
+    // HTML comments are the author's notes to self (TODOs, reminders), never visitor content.
+    const rawChunks = chunkMarkdown(parsed.content.replace(/<!--[\s\S]*?-->/g, ""));
     if (rawChunks.length === 0) {
       stats.skipped.push({ file: fileSource, reason: "no chunks produced" });
       console.log(`SKIP  ${fileSource}  (no chunks produced)`);
