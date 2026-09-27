@@ -10,7 +10,7 @@ const DEFAULT_SRC = resolve(process.cwd(), "prompts/chatbot-instructions.md");
 const src = process.argv[2] ?? DEFAULT_SRC;
 const out = resolve(process.cwd(), "src/lib/chatbot-instructions.ts");
 
-// gray-matter strips the YAML frontmatter (dev meta) — we only want the body.
+// gray-matter strips the YAML frontmatter (dev meta): we only want the body.
 const { content } = matter(readFileSync(src, "utf8"));
 const body = content.trim();
 
@@ -20,13 +20,13 @@ const escaped = body
   .replace(/`/g, "\\`")
   .replace(/\$\{/g, "\\${");
 
-const file = `// AUTO-GENERATED — do not edit by hand.
+const file = `// AUTO-GENERATED: do not edit by hand.
 // Source: prompts/chatbot-instructions.md
 // Regenerate after editing the source: npx tsx scripts/gen-system-prompt.ts
 
 /**
  * System prompt for the RAG chatbot ("AI Nehemiah"). Loaded as the Gemini
- * \`systemInstruction\` at the start of every chat session — it is NOT a
+ * \`systemInstruction\` at the start of every chat session. It is NOT a
  * retrieved chunk (the source markdown is excluded from ingestion).
  */
 export const SYSTEM_PROMPT = \`${escaped}\`;

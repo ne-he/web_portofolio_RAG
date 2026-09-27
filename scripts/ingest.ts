@@ -12,7 +12,7 @@ import { supabaseAdmin } from "../src/lib/supabase";
 // Config
 // ----------------------------------------------------------------------------
 // Knowledge-base location. Override with env `CV_DATA_DIR` or `--source <path>`.
-// (The folder moved again — now lives directly under nemi/cv. Keep this current.)
+// (The folder moved again: now lives directly under nemi/cv. Keep this current.)
 const DEFAULT_SOURCE =
   process.env.CV_DATA_DIR ??
   "C:/Users/wilhe/OneDrive/Documents/nemi/Work/CV/cv-data";
@@ -213,7 +213,7 @@ async function geminiCall<T>(
           maxBackoffMs,
         );
         console.warn(
-          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}) — retry in ${Math.round(backoff / 1000)}s`,
+          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}), retry in ${Math.round(backoff / 1000)}s`,
         );
         await sleep(backoff);
         continue;
@@ -254,13 +254,13 @@ async function trySyntheticQuestions(text: string): Promise<string[]> {
   if (!synthDisabledLogged) {
     synthDisabledLogged = true;
     console.warn(
-      "\n    ⚠ All synthetic-Q models exhausted — ingesting CONTENT chunks only for the rest of this run.",
+      "\n    ⚠ All synthetic-Q models exhausted: ingesting CONTENT chunks only for the rest of this run.",
     );
   }
   return [];
 }
 
-// pgvector accepts its text format "[a,b,c]" — JSON.stringify(number[]) matches.
+// pgvector accepts its text format "[a,b,c]", JSON.stringify(number[]) matches.
 const toVector = (v: number[]) => JSON.stringify(v);
 
 interface ChunkRow {

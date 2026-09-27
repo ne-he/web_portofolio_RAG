@@ -13,7 +13,7 @@ create table if not exists public.usage_counter (
 
 -- Atomically bumps the per-IP counter (and a shared __global__ counter), then
 -- reports whether this request is within the limits.
---   p_ip_key       : opaque per-visitor key (hashed IP) — caller supplies it
+--   p_ip_key       : opaque per-visitor key (hashed IP), caller supplies it
 --   p_ip_limit     : max questions per visitor per day
 --   p_global_limit : max questions across ALL visitors per day (<= 0 disables it)
 create or replace function public.check_and_bump_usage(

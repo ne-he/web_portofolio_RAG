@@ -41,7 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Workspace eksperimen lokal (berisi copy repo lain, 100MB+) — bukan bagian project ini
+# Workspace eksperimen lokal (berisi copy repo lain, 100MB+), bukan bagian project ini
 web_porto_V2/
 
 # catatan kerja internal, bukan bagian dari produk

@@ -107,7 +107,7 @@ async function askChatbot(question: string): Promise<{
         }
         if (parsed.error) error = parsed.error;
       } catch {
-        // potongan JSON kepotong antar-chunk — biarkan, event berikut yang lengkap
+        // potongan JSON kepotong antar-chunk: biarkan, event berikut yang lengkap
       }
     }
   }
@@ -144,7 +144,7 @@ async function main() {
 
     let reply = await askChatbot(q.question);
     for (let attempt = 2; attempt <= MAX_TRIES && isQuotaError(reply.error); attempt++) {
-      process.stdout.write(`quota — retry ${attempt}/${MAX_TRIES} in 40s... `);
+      process.stdout.write(`quota: retry ${attempt}/${MAX_TRIES} in 40s... `);
       await sleep(40_000);
       reply = await askChatbot(q.question);
     }
@@ -176,7 +176,7 @@ async function main() {
     merged = prev.map((p) => fresh.get(p.id) ?? p);
     for (const r of results) if (!prev.some((p) => p.id === r.id)) merged.push(r);
   } catch {
-    // belum ada run hari ini — pakai hasil baru apa adanya
+    // belum ada run hari ini, pakai hasil baru apa adanya
   }
   writeFileSync(jsonPath, JSON.stringify(merged, null, 2), "utf8");
 
@@ -189,7 +189,7 @@ async function main() {
         `## ${r.id} (${r.category}, ${r.lang})`,
         `**Q:** ${r.question}`,
         `**Expect:** ${r.expect}`,
-        `**Retrieval:** top_sim ${r.top_sim}${r.weak_context ? " (WEAK)" : ""} — ${sources}`,
+        `**Retrieval:** top_sim ${r.top_sim}${r.weak_context ? " (WEAK)" : ""} · ${sources}`,
         `**Latency:** first token ${r.first_token_ms}ms, total ${r.total_ms}ms`,
         r.error ? `**ERROR:** ${r.error}` : "",
         `**A:** ${r.answer}`,

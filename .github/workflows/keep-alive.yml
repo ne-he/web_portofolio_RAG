@@ -7,7 +7,7 @@ name: Keep Supabase alive
 #
 # NO SETUP REQUIRED. It just GETs the public /api/keep-alive route, and that
 # route talks to Supabase using the keys already present in the Vercel
-# deployment — so there are no repository secrets to configure.
+# deployment, so there are no repository secrets to configure.
 #
 # Optional hardening: if you add SUPABASE_URL + SUPABASE_ANON_KEY as repository
 # secrets (Settings → Secrets and variables → Actions), the second step also
@@ -23,7 +23,7 @@ name: Keep Supabase alive
 
 on:
   schedule:
-    - cron: "0 6 */2 * *" # every 2 days at 06:00 UTC — safe margin under the 7-day window
+    - cron: "0 6 */2 * *" # every 2 days at 06:00 UTC, safe margin under the 7-day window
   workflow_dispatch: {} # manual run button in the Actions tab
 
 # Never let two pings overlap.
@@ -50,7 +50,7 @@ jobs:
             echo "::error::Keep-alive ping failed (HTTP $code). The database may be paused, or the deployment is down."
             exit 1
           fi
-          echo "✅ Supabase pinged via the app — pause timer reset."
+          echo "✅ Supabase pinged via the app, pause timer reset."
 
       - name: Also ping Supabase directly (skipped unless secrets are set)
         env:
@@ -58,7 +58,7 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
-            echo "No SUPABASE_URL / SUPABASE_ANON_KEY secrets set — skipping the direct ping (optional)."
+            echo "No SUPABASE_URL / SUPABASE_ANON_KEY secrets set, skipping the direct ping (optional)."
             exit 0
           fi
           TARGET="$SUPABASE_URL/rest/v1/chunks?select=id&limit=1"

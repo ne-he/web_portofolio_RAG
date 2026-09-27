@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nemi — Ask Nemi Everything</title>
+<title>Nemi · Ask Nemi Everything</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -457,11 +457,11 @@ function InputBar({ value, onChange, onSend, disabled, isDark, placeholder }) {
 
 /* ---------- canned fallback if the in-prototype Claude API is unavailable ---------- */
 const NEMI_FALLBACKS = {
-  default: "I'm Nemi — Nehemiah's digital mind, rendered in light. Ask me about his projects, his stack, or how to reach him.",
-  projects: "Nehemiah builds thoughtful web experiences — interactive product prototypes, RAG-powered tools, and motion-rich landing pages. Each one pairs clean engineering with a strong visual point of view.",
+  default: "I'm Nemi, Nehemiah's digital mind, rendered in light. Ask me about his projects, his stack, or how to reach him.",
+  projects: "Nehemiah builds thoughtful web experiences: interactive product prototypes, RAG-powered tools, and motion-rich landing pages. Each one pairs clean engineering with a strong visual point of view.",
   stack: "His core stack is **React** and **Next.js** with **TypeScript** and **Tailwind**. On the backend he reaches for serverless functions and vector search to power retrieval-augmented chat like this one.",
-  contact: "The fastest way to reach Nehemiah is the icons below — **Instagram**, **GitHub**, or **WhatsApp**. He reads everything that lands there.",
-  about: "Nehemiah is a designer-engineer who likes the seam where craft meets code. He cares about interfaces that feel calm, considered, and a little bit alive — like this one."
+  contact: "The fastest way to reach Nehemiah is the icons below: **Instagram**, **GitHub**, or **WhatsApp**. He reads everything that lands there.",
+  about: "Nehemiah is a designer-engineer who likes the seam where craft meets code. He cares about interfaces that feel calm, considered, and a little bit alive, like this one."
 };
 function pickFallback(q) {
   const s = q.toLowerCase();
@@ -476,7 +476,7 @@ async function fetchNemiReply(question) {
   try {
     if (window.claude && typeof window.claude.complete === 'function') {
       const prompt =
-        "You are Nemi, the AI persona of Nehemiah's personal portfolio — a digital consciousness rendered in glowing particles. " +
+        "You are Nemi, the AI persona of Nehemiah's personal portfolio, a digital consciousness rendered in glowing particles. " +
         "Speak warmly, briefly (2-4 sentences), first-person as Nemi on Nehemiah's behalf. You may use **bold** and *italic*. " +
         "If you don't know a specific fact, stay graceful and general.\n\nVisitor asks: " + question;
       const out = await window.claude.complete(prompt);
@@ -566,7 +566,7 @@ function App() {
       <VideoBg src={isDark ? "uploads/dark-bg.mp4" : "uploads/light-bg.mp4"} />
       <div className="scrim" style={{ background: inChat ? baseScrim : heroScrim }} />
 
-      {/* "different world" wash — fades in while the Nemi logo is hovered */}
+      {/* "different world" wash: fades in while the Nemi logo is hovered */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-700 ease-out"
         style={{
