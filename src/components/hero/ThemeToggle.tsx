@@ -4,7 +4,7 @@ import { Moon, Sun } from "./icons";
 
 export type Theme = "dark" | "light";
 
-/** Light / Dark pill toggle (top-right of the hero) — ported 1:1 from Hero.html. */
+/** Light / Dark pill toggle (top-right of the hero), ported 1:1 from Hero.html. */
 export function ThemeToggle({
   theme,
   setTheme,

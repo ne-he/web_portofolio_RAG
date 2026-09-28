@@ -199,7 +199,7 @@ async function geminiCall<T>(
           maxBackoffMs,
         );
         console.warn(
-          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}) — retry in ${Math.round(backoff / 1000)}s`,
+          `    ⚠ ${label} attempt ${attempt}/${maxAttempts} (${isQuota ? "quota" : "transient"}), retry in ${Math.round(backoff / 1000)}s`,
         );
         await sleep(backoff);
         continue;
@@ -240,13 +240,13 @@ async function trySyntheticQuestions(text: string): Promise<string[]> {
   if (!synthDisabledLogged) {
     synthDisabledLogged = true;
     console.warn(
-      "\n    ⚠ All synthetic-Q models exhausted — ingesting CONTENT chunks only for the rest of this run.",
+      "\n    ⚠ All synthetic-Q models exhausted, ingesting CONTENT chunks only for the rest of this run.",
     );
   }
   return [];
 }
 
-// pgvector accepts its text format "[a,b,c]" — JSON.stringify(number[]) matches.
+// pgvector accepts its text format "[a,b,c]", JSON.stringify(number[]) matches.
 const toVector = (v: number[]) => JSON.stringify(v);
 
 interface ChunkRow {

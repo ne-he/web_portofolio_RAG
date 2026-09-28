@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 /**
  * Holds the light/dark choice in the root layout so it survives client-side
- * navigation between the home chat and the /profile /projects /about pages —
+ * navigation between the home chat and the /profile /projects /about pages:
  * every screen reads the same theme via {@link useTheme}.
  */
 export function ThemeProvider({ children }: { children: ReactNode }) {

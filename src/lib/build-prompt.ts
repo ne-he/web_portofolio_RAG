@@ -23,7 +23,7 @@ function formatContext(chunks: MatchedChunk[]): string {
     (c) => `## Source: ${c.file_source} [${c.chunk_type}]\n${c.content}`,
   );
   return [
-    "KONTEKS dari knowledge base (sumber kebenaran — jangan mengarang fakta di luar ini):",
+    "KONTEKS dari knowledge base (sumber kebenaran, jangan mengarang fakta di luar ini):",
     "",
     blocks.join("\n\n"),
   ].join("\n");

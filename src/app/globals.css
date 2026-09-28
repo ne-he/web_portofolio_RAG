@@ -129,7 +129,7 @@
   }
 }
 
-/* ───────── Hero: liquid-glass + scrim — ported 1:1 from Hero.html ───────── */
+/* ───────── Hero: liquid-glass + scrim, ported 1:1 from Hero.html ───────── */
 .liquid-glass {
   background: rgba(255, 255, 255, 0.01);
   background-blend-mode: luminosity;
@@ -187,7 +187,7 @@
   transition: background 600ms ease, backdrop-filter 600ms ease;
 }
 
-/* ───────── Chat: icy "particle light" accent — used ONLY as glow & edges ───────── */
+/* ───────── Chat: icy "particle light" accent, used ONLY as glow & edges ───────── */
 :root { --accent: 170, 222, 255; }
 
 /* AI reply card: soft neutral glass, hairline edge (NO blue fill) */

@@ -49,6 +49,6 @@ export async function checkDailyLimit(ip: string): Promise<DailyLimitResult> {
       reason: row.allowed ? undefined : row.ip_count > IP_LIMIT ? "ip" : "global",
     };
   } catch {
-    return allow; // fail open — never let the limiter take down chat
+    return allow; // fail open, never let the limiter take down chat
   }
 }

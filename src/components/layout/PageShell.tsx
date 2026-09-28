@@ -7,7 +7,7 @@ import { useTheme } from "./ThemeProvider";
 /**
  * Shared scaffold for the Profile / Projects / About routes: same particle-video
  * background + scrim + unified nav as the home page, with a centered glass panel.
- * Content is a "Coming soon" placeholder for now — theme-aware in light & dark.
+ * Content is a "Coming soon" placeholder for now, theme-aware in light & dark.
  */
 export function PageShell({ title }: { title: string }) {
   const { theme } = useTheme();

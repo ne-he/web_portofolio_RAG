@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
  *
  * Playback: the `autoPlay` attribute isn't reliably honored after a client-side
  * (keyed) remount, so we also kick `.play()` off explicitly once data is ready
- * — mirrors the original Hero.html prototype, which is why the particles
+ * mirrors the original Hero.html prototype, which is why the particles
  * actually animate instead of freezing on the first frame.
  *
  * Perf: the element starts at opacity-0 over the parent's solid bg and fades in
@@ -24,7 +24,7 @@ export function VideoBackground({ src }: { src: string }) {
     if (!v) return;
     const tryPlay = () => {
       v.play().catch(() => {
-        /* autoplay can be blocked until interaction — safe to ignore */
+        /* autoplay can be blocked until interaction, safe to ignore */
       });
     };
     v.load();

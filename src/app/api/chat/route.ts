@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30; // ceiling (s) for the streamed Gemini response
 
-// Payload guards — reject obviously abusive bodies before doing any real work.
+// Payload guards: reject obviously abusive bodies before doing any real work.
 const MAX_MESSAGES = 40; // a genuine visitor session won't exceed this
 const MAX_MESSAGE_CHARS = 2000; // a single user turn
 const MAX_TOTAL_CHARS = 16000; // the whole transcript posted in one body
@@ -17,12 +17,12 @@ export async function POST(req: Request) {
   try {
     const ip = getClientIp(req);
 
-    // 0. Burst guard (in-memory) — one client hammering the endpoint
+    // 0. Burst guard (in-memory): one client hammering the endpoint
     //    (refresh spam, runaway loops). See rate-limit.ts.
     const rl = hit(ip);
     if (!rl.ok) {
       return Response.json(
-        { error: "Waduh kebanyakan pesan beruntun — istirahat bentar ya, terus coba lagi. 😅" },
+        { error: "Waduh kebanyakan pesan beruntun, istirahat bentar ya, terus coba lagi. 😅" },
         {
           status: 429,
           headers: {
@@ -34,13 +34,13 @@ export async function POST(req: Request) {
       );
     }
 
-    // 0b. Per-day cap (Supabase-backed) — survives serverless cold starts unlike
+    // 0b. Per-day cap (Supabase-backed): survives serverless cold starts unlike
     //     the in-memory burst guard. Fails OPEN if the usage table isn't set up.
     const daily = await checkDailyLimit(ip);
     if (!daily.ok) {
       const msg =
         daily.reason === "global"
-          ? "Lagi rame banget nih — AI Nehemiah istirahat dulu, balik lagi besok ya. 🙏"
+          ? "Lagi rame banget nih, AI Nehemiah istirahat dulu, balik lagi besok ya. 🙏"
           : "Udah lumayan banyak nanya hari ini 😄 lanjut besok ya, biar yang lain juga kebagian.";
       return Response.json({ error: msg }, { status: 429, headers: { "Retry-After": "3600" } });
     }
@@ -48,17 +48,17 @@ export async function POST(req: Request) {
     const body = (await req.json()) as { messages?: InboundMessage[] };
     const messages = Array.isArray(body.messages) ? body.messages : [];
 
-    // 1. Payload guards — bound the work before embedding / calling Gemini.
+    // 1. Payload guards: bound the work before embedding / calling Gemini.
     if (messages.length === 0 || messages.length > MAX_MESSAGES) {
       return Response.json(
-        { error: "Format obrolan nggak valid — coba mulai chat baru ya." },
+        { error: "Format obrolan nggak valid, coba mulai chat baru ya." },
         { status: 400 },
       );
     }
     const totalChars = messages.reduce((sum, m) => sum + (m.content?.length ?? 0), 0);
     if (totalChars > MAX_TOTAL_CHARS) {
       return Response.json(
-        { error: "Obrolannya kepanjangan — mulai chat baru aja ya biar enteng. 🙏" },
+        { error: "Obrolannya kepanjangan, mulai chat baru aja ya biar enteng. 🙏" },
         { status: 413 },
       );
     }
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     }
     if (lastUser.content.length > MAX_MESSAGE_CHARS) {
       return Response.json(
-        { error: "Pesannya kepanjangan (maks 2000 karakter) — ringkas dikit ya. 🙏" },
+        { error: "Pesannya kepanjangan (maks 2000 karakter), ringkas dikit ya. 🙏" },
         { status: 413 },
       );
     }
