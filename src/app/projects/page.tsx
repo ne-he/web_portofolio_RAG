@@ -92,9 +92,9 @@ const GROUPS: { title: string; items: Project[] }[] = [
       {
         name: "ICEBERG",
         tag: "Web CV 3D",
-        desc: "Web CV yang di-scroll turun menembus gunung es 3D, React Three Fiber dengan aset Blender. Chat di dalamnya pakai backend Ask Nemi.",
+        desc: "Web CV yang di-scroll turun: dari padang salju, jatuh lewat celah, masuk ke gua es biru, dan tiap bagian riwayat Nemi jadi balok es yang bisa dibuka. Dunianya dibangkitkan dari noise di JavaScript dengan React Three Fiber. Chat di dalamnya pakai backend Ask Nemi.",
         live: "https://ice-nemi.vercel.app/",
-        repo: "https://github.com/ne-he/iceberg",
+        repo: "https://github.com/ne-he/icee",
       },
       {
         name: "ARMORY",
