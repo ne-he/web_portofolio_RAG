@@ -40,6 +40,13 @@ const PINS: { pattern: RegExp; file: string }[] = [
   { pattern: /besi ?kita|bengkel/i, file: "projects/besikita-bengkel.md" },
   { pattern: /churn|credit|kredit|gym|workout|second brain/i, file: "projects/smaller-builds.md" },
   { pattern: /linkedin|kontak|contact|hubungi|reach (him|nemi|out)|e-?mail|whats ?app|instagram/i, file: "bio.md" },
+  // Recruiter topics, not projects. "Is Nehemiah going to study in Taiwan? Which
+  // university?" ranked study-abroad.md 7th on 3 Oct 2026 and the bot said it had
+  // no information; the Jul 2026 eval lost the weakness chunk the same way.
+  { pattern: /taiwan|ndhu|dong hwa|study abroad|exchange|pertukaran (pelajar|mahasiswa)|(kuliah|studi|sekolah) (di |ke )?luar negeri/i, file: "study-abroad.md" },
+  { pattern: /apple\s*(developer\s*)?academy/i, file: "apple-academy.md" },
+  { pattern: /kelemahan|kekurangan|weakness|kelebihan|kekuatan|strengths?\b|gaya kerja|work(ing)?[ -]style/i, file: "work-style.md" },
+  { pattern: /programming lang|bahasa pemrograman|coding lang|tech ?stack|which languages/i, file: "skills.md" },
 ];
 const LIST_INTENT =
   /\b(semua|all|daftar|list|sebut(in|kan)|apa (aja|saja)|which|what)\b.{0,50}\b(projek|proyek|projects?|demo|portfolio|portofolio|karya)|\b(projek|proyek|projects?)\b.{0,40}\b(apa (aja|saja)|yang (udah|sudah) live|live)\b/i;

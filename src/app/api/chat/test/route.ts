@@ -1,4 +1,4 @@
-import { embed, EMBEDDING_MODEL, CHAT_MODEL, isQuotaError } from "@/lib/gemini";
+import { embed, EMBEDDING_MODEL, CHAT_MODEL, CHAT_MODELS, isQuotaError } from "@/lib/gemini";
 import { supabasePublic } from "@/lib/supabase";
 import { getClientIp, hit } from "@/lib/rate-limit";
 
@@ -39,12 +39,12 @@ export async function GET(req: Request) {
     ok: boolean;
     gemini: string;
     supabase: string;
-    models: { embedding: string; chat: string };
+    models: { embedding: string; chat: string; chatFallbacks: readonly string[] };
   } = {
     ok: true,
     gemini: "",
     supabase: "",
-    models: { embedding: EMBEDDING_MODEL, chat: CHAT_MODEL },
+    models: { embedding: EMBEDDING_MODEL, chat: CHAT_MODEL, chatFallbacks: CHAT_MODELS.slice(1) },
   };
 
   try {
@@ -52,7 +52,7 @@ export async function GET(req: Request) {
     result.gemini = `ok (${v.length}-dim embedding)`;
   } catch (err) {
     result.ok = false;
-    result.gemini = `error: ${err instanceof Error ? err.message : String(err)}`;
+    result.gemini = classify(err);
   }
 
   try {

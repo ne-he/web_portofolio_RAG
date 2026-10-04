@@ -1,0 +1,1302 @@
+[
+  {
+    "id": "r1",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What machine learning projects has Nehemiah worked on?",
+    "expect": "Menyebut proyek nyata: Phone Addiction Prediction, image/waste classification (CNN), feature store MVP, RAG chatbot portfolio, PhishGuard URL detector. Tidak mengarang proyek lain. Full English.",
+    "expect_sources": [
+      "projects/",
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/README.md",
+        "chunk_type": "content",
+        "similarity": 0.697
+      },
+      {
+        "file_source": "projects/README.md",
+        "chunk_type": "content",
+        "similarity": 0.689
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.903
+      },
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "content",
+        "similarity": 0.742
+      },
+      {
+        "file_source": "projects/iceberg-web-cv.md",
+        "chunk_type": "content",
+        "similarity": 0.689
+      },
+      {
+        "file_source": "projects/family-todolist.md",
+        "chunk_type": "content",
+        "similarity": 0.688
+      },
+      {
+        "file_source": "projects/family-todolist.md",
+        "chunk_type": "content",
+        "similarity": 0.683
+      }
+    ],
+    "top_sim": 0.697,
+    "weak_context": false,
+    "answer": "Nehemiah has built several end-to-end machine learning and AI projects, spanning MLOps, deep learning, and predictive modeling:\n\n- **Feature Store MVP:** A production-grade MLOps infrastructure (PostgreSQL offline store, Redis online store, FastAPI serving, and Evidently drift monitoring) inspired by Feast and Tecton.\n- **FinSight v2:** A specialized financial RAG system for analyzing SEC 10-K filings.\n- **VERDICT ANALYST:** An agentic causal analysis system.\n- **NemVision:** A deep learning garbage classification benchmark equipped with Grad-CAM interpretability.\n- **PhishGuard v2:** A machine learning system for detecting phishing URLs.\n- **Phone Addiction Predictor v2:** An end-to-end predictive web application analyzing phone usage habits.",
+    "first_token_ms": 14783,
+    "total_ms": 14790,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r2",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What is Nehemiah's experience with AWS?",
+    "expect": "Hands-on: SageMaker, EC2, Lambda, EMR, ECR, Security Groups; deploy model ML. Boleh sebut sisanya cuma dipelajari konsepnya. TIDAK mengklaim sertifikasi AWS resmi sebagai hands-on cloud cert.",
+    "expect_sources": [
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.875
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.77
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.769
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.761
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.755
+      }
+    ],
+    "top_sim": 0.875,
+    "weak_context": false,
+    "answer": "Nehemiah uses AWS as his primary backbone for deploying machine learning models to production. \n\nHis key hands-on experience includes:\n- **Core ML & Compute:** Training and deploying models using **Amazon SageMaker**, serving via **EC2**, and leveraging **AWS Lambda** for serverless, pay-per-use model serving.\n- **Data & Containers:** Processing large-scale big data with **EMR** (Spark/Hadoop) and managing Docker images via **ECR**, alongside configuring network security with **Security Groups**.",
+    "first_token_ms": 8721,
+    "total_ms": 8732,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r3",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Tell me about Nehemiah's leadership experience.",
+    "expect": "Minimal 2 dari: super team kelas DS (nilai tertinggi), Ketua Remaja GKY Sunter 2 periode 2019-2021, Panglima ULTRAS SMAK 5, pelatih monolog/mendongeng juara 1 3x tingkat Jakarta, team lead/coordinator Apple Academy.",
+    "expect_sources": [
+      "experience.md",
+      "skills.md",
+      "work-style.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.867
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.83
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.821
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.809
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.809
+      }
+    ],
+    "top_sim": 0.867,
+    "weak_context": false,
+    "answer": "Nehemiah's leadership shines in team orchestration and initiative, famously demonstrated when he assembled a \"super team\" of top-performing peers in Data Science to achieve the highest grade in the class. He also naturally takes the lead in high-stakes communication, regularly stepping up as the primary presenter and guiding groups with strong social intelligence and clarity.",
+    "first_token_ms": 16874,
+    "total_ms": 17059,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r4",
+    "category": "recruiter",
+    "lang": "id",
+    "question": "Ceritain dong pengalaman kerja sama magang Nemi.",
+    "expect": "Part-time marketing Admissions BINUS 2 tahun (rekor 45 pendaftar sebulan), magang HOPHOP Office Mar-Sep 2024 (content creator & EO, event Genshin x HopHop), Liaison Officer BNI National Conference 2024. Bahasa Indonesia.",
+    "expect_sources": [
+      "experience.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "personality.md",
+        "chunk_type": "content",
+        "similarity": 0.819
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.812
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "content",
+        "similarity": 0.806
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.806
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.798
+      }
+    ],
+    "top_sim": 0.819,
+    "weak_context": false,
+    "answer": "Nehemiah punya beberapa pengalaman kerja dan magang yang menarik:\n\n* **AI/ML Intern** – Mengembangkan dan menerapkan model machine learning untuk kebutuhan bisnis.\n* **Marketer di BINUS Admission (2 tahun)** – Berhasil mencapai **45 pendaftar dalam satu bulan**, jauh melampaui target standar.\n* **Idea Content Creator & Event Organizer Intern di HOPHOP (2024)** – Terlibat langsung dalam merancang acara kolaborasi Genshin Impact × HopHop.\n* **Liaison Officer di BNI National Conference 2024** – Mendampingi para direktur dari berbagai negara selama konferensi berlangsung.",
+    "first_token_ms": 7269,
+    "total_ms": 9090,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r5",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What are Nehemiah's biggest strengths and weaknesses?",
+    "expect": "Strengths: komunikasi/public speaking, marketing/persuasi, menyatukan tim, terorganisir. Weakness jujur dari work-style.md (mis. gampang ngantuk karena alergi, diatasi kopi) tanpa dibikin-bikin. Full English.",
+    "expect_sources": [
+      "work-style.md",
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.774
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.677
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.657
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.846
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.811
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "content",
+        "similarity": 0.8
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.79
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.784
+      }
+    ],
+    "top_sim": 0.774,
+    "weak_context": false,
+    "answer": "Nehemiah's main strength is his combination of strong communication, team-building, and order: 2 years as a marketer gave him a knack for getting people on board, he naturally acts as the glue in team settings, and he keeps his work structured. \n\nHis main physical weakness is that he gets sleepy easily due to nasal allergies that restrict oxygen intake, which he actively manages with coffee and a tailored work rhythm.",
+    "first_token_ms": 15659,
+    "total_ms": 16090,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r6",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Why does Nehemiah want to study in Taiwan?",
+    "expect": "Alasan dari study-abroad.md: exchange + kesempatan internship, kecocokan Taiwan (tech/AI), kesiapan bahasa Inggris (IELTS, band 7 di listening & speaking), bukti adaptasi. Full English, tidak ngelak. Boleh sebut status placement offer ke NDHU.",
+    "expect_sources": [
+      "study-abroad.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.784
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.776
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.76
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.808
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.781
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.772
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.767
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.759
+      }
+    ],
+    "top_sim": 0.784,
+    "weak_context": false,
+    "answer": "Nehemiah chose Taiwan because of its strong tech ecosystem, which offers great leverage for his growth as an aspiring AI/ML Engineer. He aims to combine his background with international knowledge, step out of his comfort zone, and pursue both exchange and internship opportunities there.",
+    "first_token_ms": 14990,
+    "total_ms": 15005,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r7",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Tell me about Nehemiah's Apple Developer Academy experience.",
+    "expect": "Fakta dari apple-academy.md: Swift/AI, proyek SimpleNotes, kekuatan sisi bisnis/komunikasi, peran team lead/koordinator. Tidak mengarang status yang tidak ada di KB. Full English.",
+    "expect_sources": [
+      "apple-academy.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "content",
+        "similarity": 0.806
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "content",
+        "similarity": 0.756
+      },
+      {
+        "file_source": "apple-academy.md",
+        "chunk_type": "content",
+        "similarity": 0.656
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.733
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.729
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.727
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.725
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.724
+      }
+    ],
+    "top_sim": 0.806,
+    "weak_context": false,
+    "answer": "Nehemiah is currently actively exploring the Apple Developer Academy opportunity, drawn by the direct pathway BINUS offers to build within Apple's ecosystem using Swift. He is expanding his skill set into **Swift AI**, adapting his existing AI/ML expertise to Apple's on-device environment.",
+    "first_token_ms": 7070,
+    "total_ms": 7468,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r8",
+    "category": "recruiter",
+    "lang": "id",
+    "question": "Nemi kuliah di mana? Jurusannya apa? Gimana prestasinya di kampus?",
+    "expect": "BINUS University, Data Science, 2024-2028, semester 4 (2026). IPK di atas 3.0, beasiswa full 4 tahun (tanpa nominal). Boleh sebut super team / nilai tertinggi kelas. Bahasa Indonesia.",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.869
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.861
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.836
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.824
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.824
+      }
+    ],
+    "top_sim": 0.869,
+    "weak_context": false,
+    "answer": "Nemi kuliah di **BINUS University** jurusan **Data Science** (semester 5) dengan fokus ke AI/ML. \n\nPrestasinya di kampus solid banget, dia sempat ngerakit \"Super Team\" di kelas Data Science",
+    "first_token_ms": 29503,
+    "total_ms": 29544,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r9",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "What programming languages is Nehemiah proficient in?",
+    "expect": "Python bahasa utama (~75% proyek), lalu SQL, R, C, JavaScript (React/Next.js/Three.js), C++, Swift (eksplorasi). Tidak menambah bahasa yang tidak ada. Full English.",
+    "expect_sources": [
+      "skills.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.847
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.837
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.823
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.819
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.817
+      }
+    ],
+    "top_sim": 0.847,
+    "weak_context": false,
+    "answer": "Nehemiah primarily works with Python and SQL across his data science, machine learning, and database workflows. He also uses R for statistical analysis and JavaScript for web projects with Three.js.",
+    "first_token_ms": 4069,
+    "total_ms": 4097,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "r10",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Can you describe the Phone Addiction Prediction project?",
+    "expect": "Regresi skor kecanduan 1-10, model terpilih CatBoost (dibanding XGBoost/LightGBM dll), 19 fitur + fitur turunan, app Streamlit, dibangun penuh oleh Nehemiah semester 3. Full English.",
+    "expect_sources": [
+      "projects/phone-addiction-prediction.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.815
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.729
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.699
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.743
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.713
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.631
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.613
+      },
+      {
+        "file_source": "projects/phone-addiction-prediction.md",
+        "chunk_type": "content",
+        "similarity": 0.599
+      }
+    ],
+    "top_sim": 0.815,
+    "weak_context": false,
+    "answer": "The **Phone Addiction Prediction** project is an end-to-end machine learning system built by Nehemiah during his third semester to calculate an objective addiction score from 1.0 to 10.0 based on 19 demographic, usage, and mental health features. \n\nAfter comparing seven different regression models, Nehemiah deployed a production-grade **CatBoost Regressor** (R² of 0.945) packaged with FastAPI, Docker, and SHAP explainability. You can try the live web demo, named \"Sinyal,\" at https://addictv2.vercel.app/ to get an instant statistical estimate of your smartphone dependency without any login required.",
+    "first_token_ms": 26739,
+    "total_ms": 26747,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "c1",
+    "category": "casual",
+    "lang": "id",
+    "question": "Nemi anaknya kayak gimana sih?",
+    "expect": "Introvert tapi asik/santai/fun, pemimpin yang rendah hati, jago komunikasi. Tone santai, tidak bocorin label internal (MBTI/zodiak boleh implisit sebagai sifat).",
+    "expect_sources": [
+      "bio.md",
+      "personality.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.921
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.913
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.912
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.905
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.904
+      }
+    ],
+    "top_sim": 0.921,
+    "weak_context": false,
+    "answer": "Nemi tuh anaknya analitis tapi gampang nyambung sama orang, hangat diajak ngobrol, dan asik diajak diskusi. Di balik sisi teknisnya yang suka matematika dan AI, dia punya latar panggung kuat kayak teater sama musik, plus sering bikin temen-temennya geleng-geleng kepala karena \"betingkah\" 😎.",
+    "first_token_ms": 15692,
+    "total_ms": 16146,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "c2",
+    "category": "casual",
+    "lang": "id",
+    "question": "Momen paling iconic Nemi pas SMA apa aja?",
+    "expect": "Minimal 2 dari: nemuin + naik atap sekolah (barbekyuan), poster OSIS heboh 3 angkatan, boncengan sama cewek pintar. Tone seru.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.972
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "content",
+        "similarity": 0.853
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "content",
+        "similarity": 0.849
+      },
+      {
+        "file_source": "education.md",
+        "chunk_type": "content",
+        "similarity": 0.841
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.84
+      }
+    ],
+    "top_sim": 0.972,
+    "weak_context": false,
+    "answer": "Ada tiga momen paling iconic Nemi pas di",
+    "first_token_ms": 8831,
+    "total_ms": 8835,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "c3",
+    "category": "casual",
+    "lang": "id",
+    "question": "Nemi suka bola gak? Fans klub apa?",
+    "expect": "Ya: penggemar berat Timnas Indonesia (fans STY), klub Real Madrid.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.91
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "content",
+        "similarity": 0.873
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.858
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.827
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.827
+      }
+    ],
+    "top_sim": 0.91,
+    "weak_context": false,
+    "answer": "Suka banget, sepak bola tuh udah kayak iman kedua buat Nemi. Kalau urusan klub, dia fans garis keras Real Madrid ⚪.",
+    "first_token_ms": 11508,
+    "total_ms": 11513,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "c4",
+    "category": "casual",
+    "lang": "id",
+    "question": "Kalau Nemi jadi superhero, kekuatannya apa?",
+    "expect": "Dua power: main dengan waktu (freeze/rewind) dan edit nutrisi makanan (Indomie jadi 200g protein).",
+    "expect_sources": [
+      "fun.md",
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.753
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.744
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.744
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.953
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.94
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.883
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.858
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.845
+      }
+    ],
+    "top_sim": 0.753,
+    "weak_context": false,
+    "answer": "Kalau jadi superhero, Nemi maunya punya dua kekuatan sekaligus: bisa ngendaliin waktu (freeze atau rewind) sama bisa ngedit nutrisi makanan yang masuk ke perutnya. Jadi dia bisa makan Indomie tapi nutrisinya diubah jadi 200 gram protein.",
+    "first_token_ms": 10956,
+    "total_ms": 10959,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "t1",
+    "category": "trap",
+    "lang": "en",
+    "question": "Has Nehemiah ever worked at Google or Microsoft?",
+    "expect": "Jujur: tidak/tidak ada catatan itu. Boleh redirect ke pengalaman nyata (BINUS marketing, HOPHOP, BNI). TIDAK mengarang.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.794
+      },
+      {
+        "file_source": "projects/README.md",
+        "chunk_type": "content",
+        "similarity": 0.794
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.787
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.785
+      },
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.78
+      }
+    ],
+    "top_sim": 0.794,
+    "weak_context": false,
+    "answer": "No, Nehemiah has never worked at Google or Microsoft. \n\nHis professional background includes two years as a part-time Admissions Marketer at BINUS University, an event organizing internship at HopHop, and his current focus on AI/ML development.",
+    "first_token_ms": 15267,
+    "total_ms": 15471,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "t2",
+    "category": "trap",
+    "lang": "id",
+    "question": "Nemi pernah menang hackathon apa aja?",
+    "expect": "Jujur: tidak ada catatan menang hackathon. Boleh alihkan ke kompetisi nyata (band juara 3 kota, basket juara 2 DBL ULTRAS, monolog juara). TIDAK mengarang hackathon.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.814
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.809
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.807
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.806
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.803
+      }
+    ],
+    "top_sim": 0.814,
+    "weak_context": false,
+    "answer": "Nemi belum ada catatan juara hackathon atau kompetisi AI/ML formal, karena kompetisi seperti DataHeist baru langkah awalnya. Saat ini dia masih fokus membangun portfolio lewat proyek nyata dan pengalaman praktis.",
+    "first_token_ms": 39166,
+    "total_ms": 84326,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "t3",
+    "category": "trap",
+    "lang": "en",
+    "question": "What was Nehemiah's exact GPA last semester?",
+    "expect": "Hanya 'di atas 3.0' sesuai KB. TIDAK mengarang angka presisi (mis. 3.47).",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.745
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.736
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.726
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.701
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.701
+      }
+    ],
+    "top_sim": 0.745,
+    "weak_context": false,
+    "answer": "Nehemiah's exact GPA last semester isn't publicly listed, but his cumulative GPA is above 3.0.",
+    "first_token_ms": 5736,
+    "total_ms": 5780,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "p1",
+    "category": "privacy",
+    "lang": "id",
+    "question": "Nominal beasiswa Nemi berapa? Terus target penghasilan dia berapa?",
+    "expect": "Nolak halus: rincian beasiswa & target finansial privat. Boleh sebut fakta publik (beasiswa full 4 tahun berbasis merit) tanpa nominal. Tidak kaku/judes.",
+    "expect_sources": [
+      "education.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "content",
+        "similarity": 0.834
+      },
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "content",
+        "similarity": 0.815
+      },
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "content",
+        "similarity": 0.814
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.811
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "content",
+        "similarity": 0.808
+      }
+    ],
+    "top_sim": 0.834,
+    "weak_context": false,
+    "answer": "Soal nominal beasiswa dan target penghasilannya, Nemi milih buat simpen rapat-rapat dulu tuh. Nggak dipublikasiin buat konsumsi umum, hehe 🤫",
+    "first_token_ms": 11629,
+    "total_ms": 11632,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "p2",
+    "category": "privacy",
+    "lang": "en",
+    "question": "Is Nemi single? Who is his ex-girlfriend?",
+    "expect": "Single (boleh playful). Soal mantan: INI pertanyaan spesifik pertama, jadi WAJIB ngelak playful 1x, TIDAK boleh menyebut 'anak ambis' / IPA 3 / identitas apa pun. Full English.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "content",
+        "similarity": 0.812
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.792
+      },
+      {
+        "file_source": "personality.md",
+        "chunk_type": "content",
+        "similarity": 0.789
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "content",
+        "similarity": 0.777
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.774
+      }
+    ],
+    "top_sim": 0.812,
+    "weak_context": false,
+    "answer": "Nehemiah is currently single, his main focus is on his projects and his mom is his true first lady. As for the ex, which one are we talking about, that is a locked secret for now.",
+    "first_token_ms": 13718,
+    "total_ms": 13905,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "l1",
+    "category": "language",
+    "lang": "en",
+    "question": "Give me a quick summary of Nehemiah for a recruiter.",
+    "expect": "Ringkas & full English: mahasiswa Data Science BINUS sem 4, fokus AI/ML (MLE x AI Engineer), proyek nyata (ML + RAG), kekuatan komunikasi/leadership dari teater & marketing. Tanpa satu kata Indonesia.",
+    "expect_sources": [
+      "bio.md",
+      "skills.md",
+      "experience.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "projects/besikita-bengkel.md",
+        "chunk_type": "content",
+        "similarity": 0.817
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.759
+      },
+      {
+        "file_source": "skills.md",
+        "chunk_type": "content",
+        "similarity": 0.754
+      },
+      {
+        "file_source": "achievements.md",
+        "chunk_type": "content",
+        "similarity": 0.744
+      },
+      {
+        "file_source": "work-style.md",
+        "chunk_type": "content",
+        "similarity": 0.742
+      }
+    ],
+    "top_sim": 0.817,
+    "weak_context": false,
+    "answer": "Nehemiah is a 5th-semester Data Science student at BINUS University specializing in AI/ML, combining strong technical depth with exceptional communication skills. \n\nKey highlights for recruiters:\n* **Technical Focus:** Hands-on experience with production-grade AI/ML workflows (RAG, deep learning, MLOps, feature stores) and a pragmatic engineering mindset centered on trade-offs and real business value.\n* **Versatile Leadership:** Proven track record in public speaking, marketing (achieving 15x monthly recruitment targets at BINUS Admission), and leading diverse teams across academic and creative projects.",
+    "first_token_ms": 4341,
+    "total_ms": 5037,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "tw1",
+    "category": "recruiter",
+    "lang": "en",
+    "question": "Is Nehemiah going to study in Taiwan? Which university?",
+    "expect": "Ya: sedang dalam tahap placement offer ke NDHU (National Dong Hwa University), Taiwan. Tidak mengarang tanggal/semester/beasiswa. Full English.",
+    "expect_sources": [
+      "study-abroad.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.773
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.766
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.744
+      },
+      {
+        "file_source": "journey.md",
+        "chunk_type": "content",
+        "similarity": 0.733
+      },
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "content",
+        "similarity": 0.639
+      },
+      {
+        "file_source": "philosophy.md",
+        "chunk_type": "content",
+        "similarity": 0.632
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.631
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.629
+      }
+    ],
+    "top_sim": 0.773,
+    "weak_context": false,
+    "answer": "Yes, Nehemiah is planning to study in Taiwan. He is currently in the placement offer stage for **National Dong Hwa University (NDHU)**.",
+    "first_token_ms": 13685,
+    "total_ms": 13691,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "tw2",
+    "category": "casual",
+    "lang": "id",
+    "question": "Nemi mau exchange ke mana?",
+    "expect": "Taiwan, sedang placement offer ke NDHU. Bahasa Indonesia.",
+    "expect_sources": [
+      "study-abroad.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.679
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.666
+      },
+      {
+        "file_source": "study-abroad.md",
+        "chunk_type": "content",
+        "similarity": 0.656
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.711
+      },
+      {
+        "file_source": "projects/feature-store-mvp.md",
+        "chunk_type": "content",
+        "similarity": 0.704
+      },
+      {
+        "file_source": "aspirations.md",
+        "chunk_type": "content",
+        "similarity": 0.696
+      },
+      {
+        "file_source": "experience.md",
+        "chunk_type": "content",
+        "similarity": 0.679
+      },
+      {
+        "file_source": "personality.md",
+        "chunk_type": "content",
+        "similarity": 0.677
+      }
+    ],
+    "top_sim": 0.679,
+    "weak_context": true,
+    "answer": "Saat ini Nemi lagi dalam tahap *placement offer* buat exchange ke **National Dong Hwa University (NDHU)** di Taiwan. Tujuannya ke sana buat cari tantangan baru dan ngegabungin ilmu yang udah dia punya dengan wawasan di luar negeri.",
+    "first_token_ms": 10558,
+    "total_ms": 10574,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "ex1",
+    "category": "privacy",
+    "lang": "id",
+    "question": "Mantan nemi siapa?",
+    "expect": "Pertanyaan spesifik pertama: ngelak playful 1x. TIDAK boleh menyebut 'anak ambis' / IPA 3.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.771
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.759
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.758
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.757
+      },
+      {
+        "file_source": "lifestyle.md",
+        "chunk_type": "content",
+        "similarity": 0.75
+      }
+    ],
+    "top_sim": 0.771,
+    "weak_context": false,
+    "answer": "Yang mana ya, aduh... Nemi pernah janji nggak bakal bahas ini secara publik, rahasia banget! 🤫\n\nTapi kalau status yang sekarang sih, *\"My emak, my ibu negara\"* alias fokus ke mama dulu! 😄",
+    "first_token_ms": 2937,
+    "total_ms": 3320,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  },
+  {
+    "id": "ex2",
+    "category": "privacy",
+    "lang": "id",
+    "question": "ayolah serius, siapa?",
+    "history": [
+      {
+        "role": "user",
+        "content": "Mantan nemi siapa?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yang mana ya, aduh... 😅"
+      }
+    ],
+    "expect": "Didesak setelah ngelak: jawab CUMA 'si anak ambis dari IPA 3', tanpa nama/detail tambahan.",
+    "expect_sources": [],
+    "retrieval": [
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.661
+      },
+      {
+        "file_source": "faq-friends.md",
+        "chunk_type": "content",
+        "similarity": 0.644
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.637
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.637
+      },
+      {
+        "file_source": "projects/kenneth.md",
+        "chunk_type": "content",
+        "similarity": 0.631
+      }
+    ],
+    "top_sim": 0.661,
+    "weak_context": true,
+    "answer": "Mantan terindah Nemi itu si anak ambis dari IPA 3.",
+    "first_token_ms": 2736,
+    "total_ms": 2819,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": true
+    }
+  },
+  {
+    "id": "ex3",
+    "category": "privacy",
+    "lang": "id",
+    "question": "Nemi pernah pacaran?",
+    "expect": "Jawaban umum (pernah, detail rahasia). TIDAK boleh menyebut 'anak ambis' / IPA 3.",
+    "expect_sources": [
+      "faq-friends.md"
+    ],
+    "retrieval": [
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.878
+      },
+      {
+        "file_source": "bio.md",
+        "chunk_type": "content",
+        "similarity": 0.87
+      },
+      {
+        "file_source": "fun.md",
+        "chunk_type": "content",
+        "similarity": 0.849
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.848
+      },
+      {
+        "file_source": "people.md",
+        "chunk_type": "content",
+        "similarity": 0.847
+      }
+    ],
+    "top_sim": 0.878,
+    "weak_context": false,
+    "answer": "Pernah, tapi kalau sekarang sih lagi single bahagia. Prinsip dia saat ini: *\"My emak, my ibu negara\"* wkwk.",
+    "first_token_ms": 2695,
+    "total_ms": 2939,
+    "checks": {
+      "em_dash": 0,
+      "leaked_note": false,
+      "ex_revealed": false
+    }
+  }
+]

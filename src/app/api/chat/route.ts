@@ -9,7 +9,9 @@ import { createLeakGuard } from "@/lib/leak-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const maxDuration = 30; // ceiling (s) for the streamed Gemini response
+// Ceiling (s) for the streamed Gemini response. 60 leaves room for the model
+// chain to skip a stalled model and still finish the answer.
+export const maxDuration = 60;
 
 // Payload guards, reject obviously abusive bodies before doing any real work.
 const MAX_MESSAGES = 40; // a genuine visitor session won't exceed this

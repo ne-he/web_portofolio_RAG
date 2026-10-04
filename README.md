@@ -5,7 +5,7 @@ A resume you talk to instead of read. Ask Nemi answers questions about Nehemiah
 honestly when the answer is not in it.
 
 **Live:** https://web-portofolio-rag.vercel.app · the same backend also powers the chat inside
-[ICEBERG](https://nemiiceberg.vercel.app)
+[ICEBERG](https://ice-nemi.vercel.app)
 
 ## How an answer is made
 
@@ -15,12 +15,18 @@ honestly when the answer is not in it.
    and a hit on a synthetic question is swapped back to its parent chunk
    (`src/lib/match-chunks.ts`). When the question names a project, that project's best chunk
    is pinned into the context, and a "list all projects" question pins the project index, so
-   an English question about an Indonesian page cannot lose the project it named.
+   an English question about an Indonesian page cannot lose the project it named. The same
+   pinning covers recruiter topics that similarity alone kept missing (study abroad,
+   Apple Developer Academy, strengths and weaknesses).
 3. **Gate.** Chunks below a similarity floor are dropped. If even the best match is weak,
    the prompt tells the model to fall back honestly instead of answering from off-topic text
    (`src/app/api/chat/route.ts`).
-4. **Answer.** Gemini 2.5 Flash, with fallback models when the free quota runs out, streamed
-   to the browser as Server-Sent Events. A leak guard drops any internal note the model
+4. **Answer.** Gemini 3.6 Flash over the REST API, with thinking switched off for latency.
+   Free-tier quota is counted per model, so the bot walks a chain of seven Flash models
+   when one runs out or stalls before its first token, and skips a model for ten minutes
+   after it answers 429
+   (`src/lib/gemini.ts`, override the order with `GEMINI_CHAT_MODELS`). Answers stream to
+   the browser as Server-Sent Events. A leak guard drops any internal note the model
    echoes at the start of an answer and replaces em dashes (`src/lib/leak-guard.ts`).
 
 The persona and answering rules live in `prompts/chatbot-instructions.md` and are compiled

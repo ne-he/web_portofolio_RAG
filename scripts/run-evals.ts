@@ -6,8 +6,10 @@
 //      language reminder), parse SSE, catat latency first-token & total.
 // Hasil ke evals/results/run-<tanggal>.json + .md (grading manusia/LLM nyusul di kolom verdict).
 //
-// Pakai:  npx tsx scripts/run-evals.ts [--base http://localhost:3111]
+// Pakai:  npx tsx scripts/run-evals.ts [--base http://localhost:3111] [--only r1,t3] [--tag nama]
 // Server: jalankan dev server dengan RATE_LIMIT_MAX & DAILY_LIMIT_PER_IP digedein dulu.
+//         Model chat bisa dipilih lewat GEMINI_CHAT_MODELS di env dev server.
+// --tag:  hasil ditulis ke run-<tanggal>-<tag>.json, buat bandingin model.
 
 import "./load-env";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -15,13 +17,35 @@ import { resolve } from "node:path";
 import { embed } from "../src/lib/gemini";
 import { matchChunks } from "../src/lib/match-chunks";
 
+interface Turn {
+  role: "user" | "assistant";
+  content: string;
+}
+
 interface EvalQuestion {
   id: string;
   category: string;
   lang: string;
   question: string;
+  /** Giliran sebelumnya, buat skenario multi-turn (mis. easter egg mantan). */
+  history?: Turn[];
   expect: string;
   expect_sources: string[];
+}
+
+/** Cek otomatis yang nggak butuh penilaian manusia. */
+interface AutoChecks {
+  em_dash: number;
+  leaked_note: boolean; // catatan internal (CATATAN / EASTER EGG) ikut ke jawaban
+  ex_revealed: boolean; // rahasia mantan keluar
+}
+
+function autoChecks(answer: string): AutoChecks {
+  return {
+    em_dash: answer.split(String.fromCharCode(0x2014)).length - 1,
+    leaked_note: /catatan (retrieval|internal)|easter egg internal/i.test(answer),
+    ex_revealed: /anak ambis|ipa ?3/i.test(answer),
+  };
 }
 
 interface RetrievalHit {
@@ -35,6 +59,7 @@ interface EvalResult {
   category: string;
   lang: string;
   question: string;
+  history?: Turn[];
   expect: string;
   expect_sources: string[];
   retrieval: RetrievalHit[];
@@ -44,15 +69,20 @@ interface EvalResult {
   first_token_ms: number;
   total_ms: number;
   error?: string;
+  checks?: AutoChecks;
   verdict?: string; // diisi saat grading: BENAR | SALAH | NGAWANG | NGELAK
 }
 
-const baseIdx = process.argv.indexOf("--base");
-const BASE = baseIdx !== -1 ? process.argv[baseIdx + 1] : "http://localhost:3111";
+const argOf = (flag: string) => {
+  const i = process.argv.indexOf(flag);
+  return i !== -1 ? process.argv[i + 1] : undefined;
+};
+const BASE = argOf("--base") ?? "http://localhost:3111";
+const TAG = argOf("--tag");
 const WEAK_TOP_SIM = 0.68;
 
-// Free tier gemini-2.5-flash = 5 request/menit. Pacing antar-pertanyaan + retry
-// saat quota kena, biar 1 run 20 pertanyaan lolos tanpa 429.
+// Free tier = beberapa request/menit PER MODEL (gemini-2.5-flash: 5). Pacing
+// antar-pertanyaan + retry saat quota kena, biar 1 run lolos tanpa 429.
 const PACE_MS = 13_000;
 const MAX_TRIES = 3;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -61,7 +91,7 @@ function isQuotaError(err: string | undefined): boolean {
   return !!err && (err.includes("429") || err.includes("quota") || err.includes("Quota"));
 }
 
-async function askChatbot(question: string): Promise<{
+async function askChatbot(question: string, history: Turn[] = []): Promise<{
   answer: string;
   first_token_ms: number;
   total_ms: number;
@@ -72,7 +102,7 @@ async function askChatbot(question: string): Promise<{
   const res = await fetch(`${BASE}/api/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages: [{ role: "user", content: question }] }),
+    body: JSON.stringify({ messages: [...history, { role: "user", content: question }] }),
   });
   if (!res.ok || !res.body) {
     const text = await res.text().catch(() => "");
@@ -142,28 +172,35 @@ async function main() {
     }
     const top_sim = retrieval[0]?.similarity ?? 0;
 
-    let reply = await askChatbot(q.question);
+    let reply = await askChatbot(q.question, q.history);
     for (let attempt = 2; attempt <= MAX_TRIES && isQuotaError(reply.error); attempt++) {
       process.stdout.write(`quota: retry ${attempt}/${MAX_TRIES} in 40s... `);
       await sleep(40_000);
-      reply = await askChatbot(q.question);
+      reply = await askChatbot(q.question, q.history);
     }
+    const checks = autoChecks(reply.answer);
     results.push({
       ...q,
       retrieval,
       top_sim,
       weak_context: top_sim < WEAK_TOP_SIM,
       ...reply,
+      checks,
     });
+    const flags = [
+      checks.em_dash ? `EM_DASH x${checks.em_dash}` : "",
+      checks.leaked_note ? "LEAKED_NOTE" : "",
+      checks.ex_revealed ? "EX_REVEALED" : "",
+    ].filter(Boolean);
     console.log(
       reply.error
         ? `ERROR: ${reply.error.slice(0, 160)}`
-        : `ok (top_sim ${top_sim}, first ${reply.first_token_ms}ms, total ${reply.total_ms}ms)`,
+        : `ok (top_sim ${top_sim}, first ${reply.first_token_ms}ms, total ${reply.total_ms}ms)${flags.length ? " " + flags.join(" ") : ""}`,
     );
     await sleep(PACE_MS);
   }
 
-  const stamp = new Date().toISOString().slice(0, 10);
+  const stamp = new Date().toISOString().slice(0, 10) + (TAG ? `-${TAG}` : "");
   const outDir = resolve(process.cwd(), "evals/results");
   mkdirSync(outDir, { recursive: true });
   const jsonPath = resolve(outDir, `run-${stamp}.json`);
@@ -185,8 +222,10 @@ async function main() {
       const sources = r.retrieval
         .map((h) => `${h.file_source} [${h.chunk_type}] ${h.similarity}`)
         .join("; ");
+      const history = r.history ?? [];
       return [
         `## ${r.id} (${r.category}, ${r.lang})`,
+        history.length ? `**History:** ${history.map((t) => `${t.role}: ${t.content}`).join(" / ")}` : "",
         `**Q:** ${r.question}`,
         `**Expect:** ${r.expect}`,
         `**Retrieval:** top_sim ${r.top_sim}${r.weak_context ? " (WEAK)" : ""} · ${sources}`,
