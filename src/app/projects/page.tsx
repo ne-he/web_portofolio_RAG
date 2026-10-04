@@ -93,7 +93,7 @@ const GROUPS: { title: string; items: Project[] }[] = [
         name: "ICEBERG",
         tag: "Web CV 3D",
         desc: "Web CV yang di-scroll turun menembus gunung es 3D, React Three Fiber dengan aset Blender. Chat di dalamnya pakai backend Ask Nemi.",
-        live: "https://nemiiceberg.vercel.app/",
+        live: "https://ice-nemi.vercel.app/",
         repo: "https://github.com/ne-he/iceberg",
       },
       {
@@ -164,7 +164,7 @@ export default function ProjectsPage() {
     <PageShell title="Projects">
       <p className={`-mt-4 text-[15px] leading-relaxed ${muted}`}>
         Semua link di bawah ini hidup. Mau versi yang lebih seru? Buka{" "}
-        <a href="https://nemiiceberg.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+        <a href="https://ice-nemi.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
           ICEBERG
         </a>{" "}
         atau{" "}
