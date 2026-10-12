@@ -24,15 +24,15 @@ export const SYNTHETIC_Q_MODEL = "gemini-2.5-flash-lite";
 // Free-tier generateContent quota is small and PER MODEL (20 req/day on both
 // gemini-2.5-flash and gemini-3.8-flash), so the chain is the bot's daily
 // capacity: every model added is another day's budget. All of these were checked
-// on this key (4 Oct 2026) to answer with thinkingBudget 0. 3.6 and 3.5 lead
-// because they streamed a first token in ~2 s, while 3.8 and 3.7 kept answering
-// 503 "high demand" and took 10 to 30 s when they did answer (eval 4 Oct 2026).
+// on this key (4 Oct 2026) to answer with thinkingBudget 0. 3.6 leads because it
+// streamed a first token in ~2 s, while 3.8 kept answering 503 "high demand" and
+// took 10 to 30 s when it did answer (eval 4 Oct 2026). Google retired 3.5 and
+// 3.7 Flash on 10 Oct 2026 and silently routes them to 3.6 and 3.8, so they are
+// no longer separate entries here.
 // GEMINI_CHAT_MODELS (comma-separated) overrides the order without a deploy.
 const DEFAULT_CHAT_MODELS = [
   "gemini-3.6-flash",
-  "gemini-3.5-flash",
   "gemini-3.8-flash",
-  "gemini-3.7-flash",
   "gemini-2.5-flash",
   "gemini-flash-latest",
   "gemini-2.5-flash-lite",
@@ -56,6 +56,16 @@ export function isQuotaError(err: unknown): boolean {
 function isTransientError(err: unknown): boolean {
   const msg = err instanceof Error ? err.message : String(err);
   return /\b50\d\b|overload|unavailable|fetch failed|ECONNRESET|ETIMEDOUT|empty response|first token|abort/i.test(msg);
+}
+
+/**
+ * True when the model itself is gone (Google answers 404 "no longer available"
+ * once a model is retired). VERDICT went dark on 11 Oct 2026 because a retired
+ * model was treated as a hard error, so the chat rotates past it instead.
+ */
+function isRetiredModelError(err: unknown): boolean {
+  const msg = err instanceof Error ? err.message : String(err);
+  return /\b404\b|NOT_FOUND|no longer available/i.test(msg);
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -159,6 +169,8 @@ const coolingUntil = new Map<string, number>();
 // stalled is skipped briefly too, so the next visitors do not each wait 8 s.
 const FIRST_TOKEN_TIMEOUT_MS = 8_000;
 const STALL_COOLDOWN_MS = 2 * 60 * 1000;
+// A retired model will not come back, so it sits out for the rest of the instance.
+const RETIRED_COOLDOWN_MS = 6 * 60 * 60 * 1000;
 
 function modelsToTry(): string[] {
   const now = Date.now();
@@ -254,13 +266,14 @@ export async function* chat({
     } catch (err) {
       clearTimeout(timer);
       lastErr = err;
+      const retired = isRetiredModelError(err);
       if (isQuotaError(err)) coolingUntil.set(modelName, Date.now() + QUOTA_COOLDOWN_MS);
+      else if (retired) coolingUntil.set(modelName, Date.now() + RETIRED_COOLDOWN_MS);
       else if (controller.signal.aborted) coolingUntil.set(modelName, Date.now() + STALL_COOLDOWN_MS);
-      const worthRotating = isQuotaError(err) || isTransientError(err);
+      const worthRotating = isQuotaError(err) || isTransientError(err) || retired;
       if (emitted || !worthRotating || i === models.length - 1) throw err;
-      console.warn(
-        `[gemini] ${modelName} unavailable (${isQuotaError(err) ? "quota" : "transient"}), falling back to ${models[i + 1]}`,
-      );
+      const reason = isQuotaError(err) ? "quota" : retired ? "retired" : "transient";
+      console.warn(`[gemini] ${modelName} unavailable (${reason}), falling back to ${models[i + 1]}`);
     }
   }
   throw lastErr ?? new Error("[gemini] chat: no model produced a response");
